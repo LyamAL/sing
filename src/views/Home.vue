@@ -80,7 +80,7 @@ export default {
   z-index: 10000;
   align-items: center;
   display: flex;
-  box-shadow:0 0 3px 0 $theme-color;
+  box-shadow: 0 0 3px 0 @theme-color;
 
 }
 </style>

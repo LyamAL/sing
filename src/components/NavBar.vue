@@ -97,7 +97,7 @@ export default {
 
 //设置选中el-menu-item时的样式
 .el-menu-item:hover {
-  color: $theme-color !important;
+  color: @theme-color !important;
   background-color: #fff !important;
 }
 
@@ -146,7 +146,7 @@ export default {
       height: 40px;
 
       &.router-link-active {
-        color: $theme-color;
+        color: @theme-color;
       }
 
       span {
@@ -161,7 +161,7 @@ export default {
       left: 100%;
       width: 0;
       height: 100%;
-      border-bottom: 3px solid $theme-color;
+      border-bottom: 3px solid @theme-color;
       transition: 0.2s all linear;
     }
 
@@ -170,7 +170,7 @@ export default {
       top: 0;
       left: 0;
       transition-delay: 0.1s;
-      border-bottom-color: $theme-color;
+      border-bottom-color: @theme-color;
       z-index: -1;
     }
 
