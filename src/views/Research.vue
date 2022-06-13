@@ -8,7 +8,7 @@
     <div style="margin:auto; width:90%;">
 
 
-      <el-row :gutter="20">
+      <el-row :gutter="20" style=" margin-top:100px">
         <el-col :span="12" v-for="(item, index) in researchList" :key="index" >
           <el-card :body-style="{ padding: '0px'}" shadow="hover">
             <div style="padding: 14px;" class="card-title">
@@ -25,17 +25,37 @@
 
       <el-divider></el-divider>
       <div class="big-title">
-          <span type="text" >Projects {{(Object.keys(projectList).length+1)/2}}</span>
+          <span type="text" >Projects</span>
 
       </div>
       <el-row :gutter="20" v-for="n in Math.ceil((Object.keys(projectList).length+1)/2)" :key="n">
       
         <el-col :span="12"  v-for="i in 2" :key="i" >
-          <el-card :body-style="{ padding: '0px'}" shadow="hover" v-if="n<=Object.keys(projectList).length">
-            n
-            <img :src="projectList.findIndex(item => item.id == n).figurl" class="image">
-          
-          </el-card>
+            <el-container style=" border: 1px solid #eee;border-radius: 4px;background-color:#eee" v-if="(n-1)*2+i<=Object.keys(projectList).length" >
+            <el-aside width="100px" style="margin:auto;text-align: center; ">
+            <img :src="projectList.find(item => item.id == (n-1)*2+i).figurl" class="icon">
+            </el-aside>
+            <el-container>
+             <el-main>
+               <div>
+                   <span class="small-title" >{{projectList.find(item => item.id == (n-1)*2+i).title}}</span>
+               </div>
+              <div>
+                  <span style="font-weight:bold" class="card-text">Source:</span>
+                  <span class="card-text">{{projectList.find(item => item.id == (n-1)*2+i).source}}</span>
+              </div>
+              <div>
+                  <span style="font-weight:bold" class="card-text">Duration: </span>
+                  <span class="card-text">{{projectList.find(item => item.id == (n-1)*2+i).duration}}</span>
+              </div>
+              <div>
+                  <span style="font-weight:bold" class="card-text">Principal Investigator: </span>
+                  <span class="card-text">{{projectList.find(item => item.id == (n-1)*2+i).principal}}</span>
+              </div>
+               
+             </el-main>
+            </el-container>
+          </el-container>
         </el-col>
       </el-row>
     </div>
@@ -67,26 +87,26 @@ export default {
         "text": "Recent years have witnessed the proliferation of Low-power Wide Area Networks (LPWANs) in the unlicensed band for various Internet-of-Things (IoT) applications. "}
       ],
       projectList:[{
+        "id": 1,
       'title':"Networking Brain for Urban Cyber-Twin System",
       'figurl': require("../assets/banner1.jpg"),
       'source':"Ministry of Science and Technology Research and Development Project",
-      'duration_start':"01-01-2021",
-      'duration_end':"01-01-2021",
-      "principal investigator": "Depeng Jin"
+      'duration':"01-01-2021 to 01-01-2021",
+      "principal": "Depeng Jin"
       },{
+        "id": 2,
         'title':"Networking Brain for Urban Cyber-Twin System",
       'figurl': require("../assets/banner1.jpg"),
       'source':"Ministry of Science and Technology Research and Development Project",
-      'duration_start':"01-01-2021",
-      'duration_end':"01-01-2021",
-      "principal investigator": "Depeng Jin"
+      'duration':"01-01-2021 to 01-01-2021",
+      "principal": "Depeng Jin"
       },{
+        "id": 3,
         'title':"Networking Brain for Urban Cyber-Twin System",
       'figurl': require("../assets/banner1.jpg"),
       'source':"Ministry of Science and Technology Research and Development Project",
-      'duration_start':"01-01-2021",
-      'duration_end':"01-01-2021",
-      "principal investigator": "Depeng Jin"
+      'duration':"01-01-2021 to 01-01-2021",
+      "principal": "Depeng Jin"
     }]
     }
   },
@@ -103,28 +123,7 @@ export default {
       message: '加载中...',
       forbidClick: true
     });
-    this.projectList = [{
-      'title':"Networking Brain for Urban Cyber-Twin System",
-      'figurl': require("../assets/banner1.jpg"),
-      'source':"Ministry of Science and Technology Research and Development Project",
-      'duration_start':"01-01-2021",
-      'duration_end':"01-01-2021",
-      "principal investigator": "Depeng Jin"
-      },{
-        'title':"Networking Brain for Urban Cyber-Twin System",
-      'figurl': require("../assets/banner1.jpg"),
-      'source':"Ministry of Science and Technology Research and Development Project",
-      'duration_start':"01-01-2021",
-      'duration_end':"01-01-2021",
-      "principal investigator": "Depeng Jin"
-      },{
-        'title':"Networking Brain for Urban Cyber-Twin System",
-      'figurl': require("../assets/banner1.jpg"),
-      'source':"Ministry of Science and Technology Research and Development Project",
-      'duration_start':"01-01-2021",
-      'duration_end':"01-01-2021",
-      "principal investigator": "Depeng Jin"
-    }]
+  
     
     Toast.clear()
   },
@@ -160,7 +159,7 @@ export default {
   }
   .el-row {
    
-    margin-top: 100px;
+    margin-top: 20px;
     
   }
 
@@ -171,6 +170,7 @@ export default {
     width: 80%;
     border: 0ch;
   }
+
 
   .image {
     width: 100%;
@@ -186,6 +186,8 @@ export default {
   .clearfix:after {
       clear: both
   }
-
+  .icon {
+    width: 90%;
+  }
 
 </style>
