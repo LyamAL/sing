@@ -78,7 +78,7 @@ export default {
   z-index: 10000;
   align-items: center;
   display: flex;
-  box-shadow: 0 0 15px 0 rgb(0 0 0 / 10%);
+  box-shadow: 0 0 4px 0 @theme-color;
 
 }
 </style>
