@@ -1,74 +1,152 @@
 <template>
   <div class="nav-bar">
-    <ul class="nav-list">
-      <div class="nav-list-logo"></div>
-      <div class="nav-list-logo"><img src="../assets/logo.png"></div>
-      <div class="nav-list-logo"></div>
-      <router-link tag="li" class="nav-list-item active" to="home">
-        <span>Home</span>
-      </router-link>
-      <router-link tag="li" class="nav-list-item" to="research">
-        <span>Research</span>
-      </router-link>
-
-      <el-dropdown :hide-on-click="false" class="nav-list-item">
-            <span class="el-dropdown-link">Publications <i class="el-icon-arrow-down el-icon--right"></i>
-            </span>
-        <el-dropdown-menu slot="dropdown" class="mymenu">
-          <el-dropdown-item class="el-menu-item">
-            <router-link tag="li" to="publications/direction"><span>By Topic</span></router-link>
-          </el-dropdown-item>
-          <el-dropdown-item class="el-menu-item">
-            <router-link tag="li" to="publications/date"><span>By Date</span></router-link>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-
-      <router-link tag="li" class="nav-list-item" to="people">
-        <span>People</span>
-      </router-link>
-      <router-link tag="li" class="nav-list-item" to="applications">
-        <span>Applications</span>
-      </router-link>
-      <router-link tag="li" class="nav-list-item" to="news">
-        <span>News</span>
-      </router-link>
-      <router-link tag="li" class="nav-list-item" to="about">
-        <span>About</span>
-      </router-link>
-      <router-link tag="li" class="nav-list-item" to="resource">
-        <span>Resource</span>
-      </router-link>
-    </ul>
+    <div class="nav-list">
+      <div class="logo"><img class="logoimg" src="../assets/logo.png" alt=""></div>
+      <div class="navbar-list" v-if="Object.keys(topNavItems).length!==0">
+        <div v-for="(menu,id) in topNavItems" :key="id" class="nav-list-item">
+          <div v-if="menu.hasChild">
+            <el-dropdown :hide-on-click="false">
+                       <span class="el-dropdown-link">{{ menu.title }}
+                         <i class="el-icon-arrow-down el-icon--right"></i>
+                       </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item class="el-menu-item" v-for="child in menu.children" v-bind:key="child">
+                  <router-link tag="li" :to="menu.title+'/'+ child.path"><span>{{ child.title }}</span></router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+          <div v-else>
+            <router-link tag="li" :to="menu.title"><span>{{ menu.title }}</span></router-link>
+          </div>
+        </div>
+      </div>
+      <el-menu class="side-menu" v-else :collapse="false">
+        <el-submenu>
+          <template slot="title">
+            <i class="el-icon-s-fold"></i>
+          </template>
+          <el-collapse>
+            <div v-for="menu in rightNavItems" v-bind:key="menu" class="collapse_item">
+              <el-collapse-item v-if="menu.hasChild" :title="menu.title" :name="menu.index">
+                <div v-for="child in menu.children" v-bind:key="child">
+                  <router-link tag="li" :to="menu.title+'/'+ child.path">
+                    <span>{{ child.title }}</span></router-link>
+                </div>
+              </el-collapse-item>
+              <router-link v-else tag="li" :to="menu.title"><span>{{ menu.title }}</span></router-link>
+            </div>
+          </el-collapse>
+          <!--          <div v-for="(menu,id) in rightNavItems" :key="id">-->
+          <!--            <div v-if="menu.hasChild">-->
+          <!--              <el-dropdown :hide-on-click="false">-->
+          <!--                       <span class="el-dropdown-link">{{ menu.title }}-->
+          <!--                         <i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+          <!--                       </span>-->
+          <!--                <el-dropdown-menu slot="dropdown">-->
+          <!--                  <el-dropdown-item class="el-menu-item" v-for="child in menu.children" v-bind:key="child">-->
+          <!--                    <router-link tag="li" :to="menu.title+'/'+ child.path"><span>{{ child.title }}</span></router-link>-->
+          <!--                  </el-dropdown-item>-->
+          <!--                </el-dropdown-menu>-->
+          <!--              </el-dropdown>-->
+          <!--            </div>-->
+          <!--            <div v-else>-->
+          <!--              <el-menu-item>-->
+          <!--                <router-link tag="li" :to="menu.title"><span>{{ menu.title }}</span></router-link>-->
+          <!--              </el-menu-item>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!--            <el-menu-item v-for="item in rightNavItems" :route="item.title" v-bind:key="item">-->
+          <!--              {{ item.title }}-->
+          <!--            </el-menu-item>-->
+        </el-submenu>
+      </el-menu>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'NavBar',
+  activeIndex: '1',
   data() {
     return {
-      dropDownShow: false, // 控制下拉菜单显示
-      leftMenuList: [ // 左侧菜单内容
-        {activeName: 'Home', titleName: '主页', activeUrl: '/index'},
-        {activeName: 'Infinity', titleName: 'Infinity', activeUrl: '/infinity'},
-        {activeName: 'About', titleName: '关于', activeUrl: '/about'}
+      screenWidth: document.body.clientWidth, //存储窗口大小,保存初始打开页面时的宽度
+      isCollapse: true,
+      navItems: [
+        {
+          title: "Home",
+          hasChild: false,
+        },
+        {
+          title: "Research",
+          hasChild: false,
+        },
+        {
+          title: "Publications",
+          hasChild: true,
+          children: [
+            {
+              title: "By Topic",
+              path: "byTopic"
+            },
+            {
+              title: "By Date",
+              path: "byDate"
+            }
+          ]
+        },
+        {
+          title: "People",
+          hasChild: false,
+        },
+        {
+          title: "Applications",
+          hasChild: false,
+
+        },
+        {
+          title: "About",
+          hasChild: false,
+        },
+        {
+          title: "Resource",
+          hasChild: false,
+        },
       ],
-      rightMenuList: [ // 右侧菜单内容
-        {activeName: 'Support', titleName: '赞助', activeUrl: '/support'}
-      ],
-      activeName: '' // 导航栏激活名称
     }
   },
-  methods: {
-    toActiveMenuItem(item) { // 激活导航菜单
-      this.activeName = item.titleName
-      this.$router.push(item.activeUrl)
-      this.dropDownShow = false
-    }
-  }
-}
 
+  mounted() {
+    //将最新的可用屏幕宽度赋给screenWidth
+    window.onresize = () => {
+      this.screenWidth = document.body.clientWidth
+    }
+  },
+  watch: {
+    screenWidth(newValue) {
+      // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
+      if (!this.timer) {
+        // 一旦监听到的screenWidth值改变，就将其重新赋给data里的screenWidth
+        this.screenWidth = newValue;
+        this.timer = true;
+        setTimeout(() => {
+          console.log(this.screenWidth);
+          this.timer = false;
+        }, 400);
+      }
+    }
+  },
+  computed: {
+    topNavItems: function () {
+      return this.screenWidth >= 600 ? this.navItems : {};
+    },
+    rightNavItems: function () {
+      return this.screenWidth < 600 ? this.navItems : {};
+    },
+  },
+
+}
 </script>
 
 <style lang="less" scoped>
@@ -84,6 +162,9 @@ export default {
     font-size: 4px;
   }
 
+  .el-dropdown-link:hover {
+    color: @theme-color;
+  }
 }
 
 //设置了行高和字体大小、高度颜色
@@ -101,85 +182,151 @@ export default {
   background-color: #fff !important;
 }
 
+
+/deep/ .el-collapse-item__header {
+  font-weight: bold;
+  font-size: 12px;
+  border-bottom: transparent;
+}
+
+/deep/ .el-collapse {
+  width: 250px;
+}
+
+/deep/ .el-collapse-item__header:hover {
+  color: @theme-color;
+}
+
+/deep/ .el-collapse-item__content {
+  padding-bottom: 5px;
+
+  span {
+    font-size: 11px;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+}
+
+.collapse_item {
+  margin: 4px 20px;
+  text-align: left;
+  vertical-align: center;
+  color: #303133;
+  background-color: white;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  border-bottom: transparent;
+
+}
+
+.collapse_item:hover {
+  color: @theme-color !important;
+}
+
 .nav-bar {
-  position: fixed;
-  .wh(74%, 40px);
+  position: relative;
+  .wh(100%, 40px);
   z-index: 1000;
   transform: translateZ(0);
-  margin: 10px 0;
-  padding: 5px 0;
-  left: 100px;
 
   .nav-list {
-    width: 100%;
-    .fj();
+    margin: 0 15%;
+    .fj(space-between);
     flex-direction: row;
     padding: 0;
-    height: 40px;
 
-    .nav-list-logo {
-      position: relative;
+    .logo {
       display: flex;
-      flex: 1;
+      .wh(40px, 40px);
       flex-direction: column;
 
-      img {
-        max-width: 50%;
-        max-height: 50%;
+      .logoimg {
+        max-width: 60%;
+        max-height: 60%;
         display: block;
         margin: auto;
       }
     }
 
-    .nav-list-item {
+    .navbar-list {
       position: relative;
       border-bottom: transparent;
-      transition: 0.4s;
-      font-size: 12px;
-      font-weight: bold;
-
       display: flex;
-      flex: 1;
-      flex-direction: column;
-      text-align: center;
-      color: #000;
-      height: 40px;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
 
-      &.router-link-active {
+      .nav-list-item {
+        position: relative;
+        flex-shrink: 0;
+        list-style: none;
+
+        transition-property: all;
+        transition-duration: 0.2s;
+        transition-timing-function: linear;
+
+        padding: 0 10px;
+        border-bottom: transparent;
+        transition: 0.4s;
+        font-size: 11px;
+        font-weight: bold;
+        text-align: center;
+        color: #000;
+
+        &.router-link-active {
+          color: @theme-color;
+        }
+
+        span {
+          font-size: 11px;
+        }
+      }
+
+      .nav-list-item:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 87%;
+        width: 0;
+        height: 100%;
+        border-bottom: 3px solid @theme-color;
+        transition: 0.2s all linear;
+      }
+
+      .nav-list-item:hover {
         color: @theme-color;
       }
 
-      span {
-        font-size: 12px;
+      .nav-list-item:hover::before {
+        width: 100%;
+        top: 0;
+        left: 0;
+        transition-delay: 0.1s;
+        border-bottom-color: @theme-color;
+        z-index: -1;
+      }
+
+      .nav-list-item:hover ~ li::before {
+        left: 0;
+      }
+
+      .nav-list-item:active {
+        color: @theme-color;
       }
     }
 
-    .nav-list-item:before {
-      content: "";
+    .side-menu {
+      right: 0;
       position: absolute;
-      top: 0;
-      left: 100%;
-      width: 0;
-      height: 100%;
-      border-bottom: 3px solid @theme-color;
-      transition: 0.2s all linear;
     }
 
-    .nav-list-item:hover::before {
-      width: 100%;
-      top: 0;
-      left: 0;
-      transition-delay: 0.1s;
-      border-bottom-color: @theme-color;
-      z-index: -1;
-    }
-
-    .nav-list-item:hover ~ li::before {
-      left: 0;
-    }
-
-    .nav-list-item:active {
-      color: #fff;
+    .side-menu /deep/ .el-submenu__title {
+      display: flex;
+      height: 40px;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
     }
   }
 

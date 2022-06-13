@@ -34,7 +34,7 @@ export default {
     if (token) {
       this.isLogin = true
     }
-    // window.addEventListener('scroll', this.pageScroll)
+    window.addEventListener('scroll', this.pageScroll)
     Toast.loading({
       message: '加载中...',
       forbidClick: true
@@ -54,11 +54,10 @@ export default {
     Toast.clear()
   },
   methods: {
-    // 滚动显示、隐藏header
-    // pageScroll() {
-    //   let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-    //   scrollTop > 100 ? this.headerScroll = true : this.headerScroll = false
-    // },
+    pageScroll() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      scrollTop > 100 ? this.headerScroll = true : this.headerScroll = false
+    },
   }
 }
 </script>
@@ -73,14 +72,13 @@ export default {
   .wh(100%, 40px);
   .fj();
   line-height: 40px;
-  padding: 0 15px;
   .boxSizing();
   font-size: 12px;
   color: #fff;
   z-index: 10000;
   align-items: center;
   display: flex;
-  box-shadow: 0 0 3px 0 @theme-color;
+  box-shadow: 0 0 15px 0 rgb(0 0 0 / 10%);
 
 }
 </style>
