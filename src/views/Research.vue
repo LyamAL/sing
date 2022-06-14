@@ -5,7 +5,7 @@
     </header>
 
 
-    <div style="margin:auto; width:90%;">
+    <div style="margin:auto; width:90%;padding-bottom: 15px;">
 
 
       <el-row :gutter="20" style=" margin-top:100px">
@@ -60,7 +60,7 @@
       </el-row>
     </div>
 
-
+    <footer-info/>
   </div>
 </template>
 
@@ -69,6 +69,8 @@
 
 import navBar from '@/components/NavBar'
 import {getLocal} from '@/common/js/utils'
+
+import footerInfo from '@/components/FooterInfo'
 import {Toast} from 'vant'
 
 export default {
@@ -109,7 +111,8 @@ export default {
     }
   },
   components: {
-    navBar
+    navBar,
+    footerInfo,
   },
   async mounted() {
     const token = getLocal('token')
@@ -158,6 +161,7 @@ export default {
   .el-row {
 
     margin-top: 20px;
+    
 
   }
 

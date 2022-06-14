@@ -9,69 +9,53 @@
 -->
 
 <template>
-  <div class="login">
-    <s-header :name="type == 'login' ? '登录' : '注册'" :back="'/home'"></s-header>
-    <img class="logo" src="//s.weituibao.com/1582958061265/mlogo.png" alt="">
-    <div v-if="type == 'login'" class="login-body login">
-      <van-form @submit="onSubmit">
-        <van-field
-          v-model="username"
-          name="username"
-          label="用户名"
-          placeholder="用户名"
-          :rules="[{ required: true, message: '请填写用户名' }]"
-        />
-        <van-field
-          v-model="password"
-          type="password"
-          name="password"
-          label="密码"
-          placeholder="密码"
-          :rules="[{ required: true, message: '请填写密码' }]"
-        />
-        <div class="verify">
-          <Verify ref="loginVerifyRef" @error="error" :showButton="false" @success="success" :width="'100%'" :height="'40px'" :fontSize="'16px'" :type="2"></Verify>
+  <div>
+    <header class="home-header wrap">
+      <nav-bar/>
+    </header>
+      <div class="login">
+      <el-card>
+          <el-divider content-position="center"><span style="font-size:0.3rem; color:rgba(56,149,191,1)">登录访问内部资源</span></el-divider>
+          <div v-if="type == 'login'" class="login-body login">
+          <van-form @submit="onSubmit" style="padding-top:10px">
+            <van-field
+              v-model="username"
+              name="username"
+              label="用户名"
+              placeholder="用户名"
+              :rules="[{ required: true, message: '请填写用户名' }]"
+            />
+            <van-field
+              v-model="password"
+              type="password"
+              name="password"
+              label="密码"
+              placeholder="密码"
+              :rules="[{ required: true, message: '请填写密码' }]"
+            />
+            <div class="verify">
+              <Verify ref="loginVerifyRef" @error="error" :showButton="false" @success="success" :width="'100%'" :fontSize="'0.3rem'" :type="2"></Verify>
+            </div>
+            <div style="text-align:center; margin-top:10px">
+              <el-button type="primary" round native-type="submit" >登 录</el-button>
+            </div>
+          </van-form>
         </div>
-        <div style="margin: 16px;">
-          <div class="link-register" @click="toggle('register')">立即注册</div>
-          <van-button round block type="info" color="#1baeae" native-type="submit">登录</van-button>
-        </div>
-      </van-form>
+      </el-card>
+     
     </div>
-    <div v-else class="login-body register">
-      <van-form @submit="onSubmit">
-        <van-field
-          v-model="username1"
-          name="username1"
-          label="用户名"
-          placeholder="用户名"
-          :rules="[{ required: true, message: '请填写用户名' }]"
-        />
-        <van-field
-          v-model="password1"
-          type="password"
-          name="password1"
-          label="密码"
-          placeholder="密码"
-          :rules="[{ required: true, message: '请填写密码' }]"
-        />
-        <div class="verify">
-          <Verify ref="loginVerifyRef" @error="error" :showButton="false" @success="success" :width="'100%'" :height="'40px'" :fontSize="'16px'" :type="2"></Verify>
-        </div>
-        <div style="margin: 16px;">
-          <div class="link-login" @click="toggle('login')">已有登录账号</div>
-          <van-button round block type="info" color="#1baeae" native-type="submit">注册</van-button>
-        </div>
-      </van-form>
-    </div>
+  <footer-info/>
   </div>
 </template>
 
+
 <script>
-import sHeader from '@/components/SimpleHeader'
-import { login, register, getUserInfo } from '../service/user'
-import { setLocal, getLocal } from '@/common/js/utils'
-import { Toast } from 'vant'
+
+import navBar from '@/components/NavBar'
+import {getLocal} from '@/common/js/utils'
+
+import footerInfo from '@/components/FooterInfo'
+import {Toast} from 'vant'
 import Verify from 'vue2-verify'
 export default {
   data() {
@@ -85,8 +69,9 @@ export default {
     }
   },
   components: {
-    sHeader,
-    Verify
+    Verify,
+    navBar,
+    footerInfo
   },
   methods: {
     dealTriVer() {
@@ -110,14 +95,7 @@ export default {
         })
         setLocal('token', data)
         window.location.href = '/'
-      } else {
-        const { data } = await register({
-          "loginName": values.username1,
-          "password": values.password1
-        })
-        Toast.success('注册成功')
-        this.type = 'login'
-      }
+      } 
     },
     success(obj) {
       this.verify = true
@@ -134,6 +112,9 @@ export default {
 </script>
 
 <style lang="less">
+
+@import '../common/style/mixin';
+@import '../common/style/text';
   .login {
     .logo {
       width: 120px;
@@ -192,7 +173,7 @@ export default {
           height: 38px!important;
           border: 1px solid #e9e9e9;
           padding-left: 10px;
-          font-size: 16px;
+          font-size: 0.3rem;
         }
         .verify-change-area {
           line-height: 44px;
@@ -200,4 +181,31 @@ export default {
       }
     }
   }
+
+  .el-card{
+    margin: auto;
+    width: 400px;
+    padding: 20px;
+    margin: 40px auto;
+    
+  }
+  .el-card__body{
+      padding-top: 0px;
+      padding-bottom: 0px;
+  }
+
+  .el-divider--horizontal{
+     margin: 10px 0;
+     border-top: 2px solid rgba(56,149,191,1);
+ }
+
+.el-button--primary,.el-button--primary.is-active, .el-button--primary:active{background: rgba(56,149,191,1);width:60%;}
+
+.el-button--primary，.el-button--primary:focus:hover {
+    background: rgba(56,149,191,1);
+    border-color: rgba(56,149,191,1);
+    color:rgba(56,149,191,1);
+    width:60%;
+}
+
 </style>

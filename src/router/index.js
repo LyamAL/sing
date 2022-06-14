@@ -69,11 +69,11 @@ const routes = [
   //   name: 'about',
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   // },
-  // {
-  //   path: '/resource',
-  //   name: 'resource',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/Resource.vue'),
-  // }
+  {
+     path: '/resource',
+     name: 'resource',
+     component: () => import(/* webpackChunkName: "about" */ '../views/ResourceLogin.vue'),
+  }
 ]
 
 const router = new VueRouter({
