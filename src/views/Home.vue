@@ -77,15 +77,15 @@ export default {
       forbidClick: true
     });
     this.swiperList = [{
-      "carouselUrl": "https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner-p50-pocket.png",
+      "carouselUrl": require("../assets/banner1.jpg"),
       "redirectUrl": "http://47.102.214.205/"
     },
       {
-        "carouselUrl": "https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner-iphone13.png",
+        "carouselUrl": require("../assets/banner2.jpg"),//"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner-iphone13.png",
         "redirectUrl": "http://47.102.214.205/"
       },
       {
-        "carouselUrl": "https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner-mate40.png",
+        "carouselUrl": require("../assets/banner3.jpg"),
         "redirectUrl": "http://47.102.214.205/"
       }]
     Toast.clear()
