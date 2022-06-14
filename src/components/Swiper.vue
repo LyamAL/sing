@@ -24,8 +24,6 @@ export default {
 
 <style lang='less' scoped>
 .my-swipe {
-  width: 100%;
-  top: 40px;
   .van-swipe-item {
     img {
       width: 100%;
