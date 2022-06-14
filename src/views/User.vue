@@ -107,7 +107,6 @@ export default {
         height: 100%;
         padding: 25px 20px;
         .boxSizing();
-
         img {
           .wh(60px, 60px);
           border-radius: 50%;

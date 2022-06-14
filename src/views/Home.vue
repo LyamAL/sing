@@ -19,13 +19,24 @@
       </div>
     </div>
 
-    <div class="research-list" @click="goToResearch">
-      <div v-for="research in researchList" v-bind:key="research.index">
+    <div class="research-list">
+      <div v-for="research in researchList" v-bind:key="research.index" @click="goTo">
         <router-link tag="a" to="/research"><span>{{ research.name }}</span></router-link>
         <img src="../assets/logo.png" alt=""/>  <!--      <img :src="research.imgUrl">-->
         <p>{{ research.desc }} </p>
       </div>
     </div>
+
+    <div class="prof-list">
+      <div v-for="prof in professorList" v-bind:key="prof.index" class="card">
+        <img :src="prof.imgUrl">
+        <div class="col">
+          <router-link tag="a" :to="prof.pageUrl"><span>{{ prof.name }}</span></router-link>
+          <p>{{ prof.desc }} </p>
+        </div>
+      </div>
+    </div>
+
     <footerInfo/>
   </div>
 </template>
@@ -58,13 +69,38 @@ export default {
           'name': 'Research 3',
           'imgUrl': '',
           'desc': 'As one of the representatives of low-power wide-area network (LPWAN) technology, LoRa has become a widely used communication platform in the Internet of Things.'
+        }],
+      professorList: [{
+        'name': 'TIAN HE',
+        'imgUrl': 'http://47.102.214.205/img/hetian.39ba6c0b.jpg',
+        'pageUrl': 'http://47.102.214.205/',
+        'desc': 'IEEE/ACM Fellow\n' +
+          'Director, Smart Internet of Things Research Center, Southeast University\n' +
+          '\n' +
+          'Research Interests: Artificial Intelligence, Wireless Coexistence, Posture/Behavior Estimation, Social Interaction Monitoring, Large-Scale Intelligent Transportation Systems (road network efficiency and safety), Rechargeable Sensor Systems/Battery Array Management/Safe Charging.'
+      }
+        , {
+          'name': 'SHUAI WANG',
+          'imgUrl': 'http://47.102.214.205/img/wangshuai.3c813d61.jpg',
+          'pageUrl': 'http://47.102.214.205/',
+          'desc': 'Young Chief Professor, School of Computer Science and Engineering, Southeast University\n' +
+            'Executive Director, Smart Internet of Things Research Center, Southeast University\n' +
+            '\n' +
+            'Research Interests: Artificial Intelligence, Data Mining, Internet of Things, Wireless Networks And Sensors.\n'
+        }, {
+          'name': 'WEIWEI CHEN',
+          'imgUrl': 'http://47.102.214.205/img/chenweiwei.a8bc4b47.jpg',
+          'pageUrl': 'http://47.102.214.205/',
+          'desc': 'Associate Professor, School of Computer Science and Engineering, Southeast University\n' +
+            '\n' +
+            'Research Interests: Internet of Things, Wireless Communications, Mobile Edge Computing'
         }]
     }
   },
   components: {
     navBar,
     swiper,
-    footerInfo
+    footerInfo,
   },
   async mounted() {
     const token = getLocal('token')
@@ -95,9 +131,9 @@ export default {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       scrollTop > 100 ? this.headerScroll = true : this.headerScroll = false
     },
-    goToResearch() {
+    goTo() {
       this.$router.push({path: `research`})
-    }
+    },
   }
 }
 </script>
@@ -154,16 +190,12 @@ export default {
   div {
     width: 23%;
     color: #4d5156;
-
     background-color: #f8f8f8;
-    transition: width 2s;
-
     flex-direction: column;
     text-align: center;
     display: flex;
     margin: 0 10px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-
 
     &:hover {
       background-color: #f5f5f5;
@@ -193,6 +225,69 @@ export default {
       font-size: 12px;
       text-align: left;
     }
+  }
+}
+
+.prof-list {
+  display: flex;
+  width: 100%;
+  padding-left: 14%;
+  padding-top: 15px;
+  flex-direction: column;
+  .fj(center);
+  padding-bottom: 15px;
+
+  .card {
+    width: 72%;
+    color: #4d5156;
+    background-color: #fefefe;
+    margin: 15px 0;
+
+    flex-direction: row;
+    text-align: center;
+    .fj(space-around);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+
+
+    img {
+      .wh(100px, 120px);
+      border-radius: 8px;
+      margin: 5px 0;
+    }
+
+    &:hover {
+      background-color: #fff;
+    }
+
+    .col {
+      width: 80%;
+      color: #4d5156;
+      background-color: #fefefe;
+      flex-direction: column;
+      text-align: left;
+      .fj(center);
+
+      a {
+        padding-top: 10px;
+
+        :hover {
+          color: @theme-color;
+        }
+      }
+
+      span {
+        padding-left: 10px;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      p {
+        padding: 10px 10px;
+        font-size: 12px;
+        text-align: left;
+      }
+    }
+
   }
 
 }
