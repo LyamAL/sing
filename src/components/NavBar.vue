@@ -24,7 +24,7 @@
       <el-menu class="side-menu" v-else :collapse="false">
         <el-submenu>
           <template slot="title">
-            <i class="el-icon-s-fold"></i>
+            <i class="el-icon-more"></i>
           </template>
           <el-collapse>
             <div v-for="menu in rightNavItems" v-bind:key="menu" class="collapse_item">
@@ -37,28 +37,6 @@
               <router-link v-else tag="li" :to="menu.title"><span>{{ menu.title }}</span></router-link>
             </div>
           </el-collapse>
-          <!--          <div v-for="(menu,id) in rightNavItems" :key="id">-->
-          <!--            <div v-if="menu.hasChild">-->
-          <!--              <el-dropdown :hide-on-click="false">-->
-          <!--                       <span class="el-dropdown-link">{{ menu.title }}-->
-          <!--                         <i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
-          <!--                       </span>-->
-          <!--                <el-dropdown-menu slot="dropdown">-->
-          <!--                  <el-dropdown-item class="el-menu-item" v-for="child in menu.children" v-bind:key="child">-->
-          <!--                    <router-link tag="li" :to="menu.title+'/'+ child.path"><span>{{ child.title }}</span></router-link>-->
-          <!--                  </el-dropdown-item>-->
-          <!--                </el-dropdown-menu>-->
-          <!--              </el-dropdown>-->
-          <!--            </div>-->
-          <!--            <div v-else>-->
-          <!--              <el-menu-item>-->
-          <!--                <router-link tag="li" :to="menu.title"><span>{{ menu.title }}</span></router-link>-->
-          <!--              </el-menu-item>-->
-          <!--            </div>-->
-          <!--          </div>-->
-          <!--            <el-menu-item v-for="item in rightNavItems" :route="item.title" v-bind:key="item">-->
-          <!--              {{ item.title }}-->
-          <!--            </el-menu-item>-->
         </el-submenu>
       </el-menu>
     </div>
@@ -226,6 +204,7 @@ export default {
 
 .nav-bar {
   position: relative;
+  background-color: #fff;
   .wh(100%, 40px);
   z-index: 1000;
   transform: translateZ(0);
