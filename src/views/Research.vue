@@ -38,7 +38,7 @@
             <el-container>
              <el-main>
                <div>
-                   <span class="small-title" >{{projectList.find(item => item.id == (n-1)*2+i).title}}</span>
+                   <span class="small-title" style="margin_bottom:10px">{{projectList.find(item => item.id == (n-1)*2+i).title}}</span>
                </div>
               <div>
                   <span style="font-weight:bold" class="card-text">Source:</span>
@@ -74,7 +74,7 @@ import {getLocal} from '@/common/js/utils'
 import {Toast} from 'vant'
 
 export default {
-  name: 'home',
+  name: 'research',
   data() {
     return {
       researchList:[{
