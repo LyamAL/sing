@@ -81,10 +81,13 @@ export default {
         {
           title: "Application", path: "/application",
           hasChild: false,
-
         },
         {
-          title: "About", path: "/about",
+          title: "News", path: "/news",
+          hasChild: false,
+        },
+        {
+          title: "Join Us", path: "/joinus",
           hasChild: false,
         },
         {

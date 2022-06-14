@@ -252,7 +252,6 @@ export default {
   flex-direction: column;
   text-align: left;
 }
-
 .tabs {
   .fj(flex-start);
   width: 72%;

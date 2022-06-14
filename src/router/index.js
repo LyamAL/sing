@@ -36,19 +36,11 @@ const routes = [
     name: 'research',
     component: () => import(/* webpackChunkName: "home" */ '../views/Research.vue'),
   },
-  // {
-  //   path: '/news',
-  //   name: 'news',
-  //   component: () => import(/* webpackChunkName: "news" */ '../views/News.vue'),
-  // },
-  // {
-  //   path: '/project',
-  //   name: 'project',
-  //   meta: {
-  //     index: 1
-  //   },
-  //   component: () => import(/* webpackChunkName: "category" */ '../views/PublicationDate.vue'),
-  // },
+  {
+    path: '/news',
+    name: 'news',
+    component: () => import(/* webpackChunkName: "news" */ '../views/News.vue'),
+  },
   // {
   //   path: '/seminars',
   //   name: 'seminars',

@@ -1,168 +1,206 @@
-<!--
- * 严肃声明：
- * 开源版本请务必保留此注释头信息，若删除我方将保留所有法律责任追究！
- * 本系统已申请软件著作权，受国家版权局知识产权以及国家计算机软件著作权保护！
- * 可正常分享和学习源码，不得用于违法犯罪活动，违者必究！
- * Copyright (c) 2020 陈尼克 all rights reserved.
- * 版权所有，侵权必究！
- *
--->
-
 <template>
-  <div class="order-box">
-    <s-header :name="'我的订单'" :back="'/user'"></s-header>
-    <van-tabs @change="onChangeTab" :color="'#1baeae'" :title-active-color="'#1baeae'" class="order-tab" v-model="status">
-      <van-tab title="全部" name=''></van-tab>
-      <van-tab title="待付款" name="0"></van-tab>
-      <van-tab title="待确认" name="1"></van-tab>
-      <van-tab title="待发货" name="2"></van-tab>
-      <van-tab title="已发货" name="3"></van-tab>
-      <van-tab title="交易完成" name="4"></van-tab>
-    </van-tabs>
-    <van-pull-refresh v-model="refreshing" @refresh="onRefresh" class="order-list-refresh">
-      <van-list
-        v-model="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-        @load="onLoad"
-        @offset="300"
-      >
-        <div v-for="(item, index) in list" :key="index" class="order-item-box" @click="goTo(item.orderNo)">
-          <div class="order-item-header">
-            <span>订单时间：{{ item.createTime }}</span>
-            <span>{{ item.orderStatusString }}</span>
-          </div>
-          <van-card
-            v-for="one in item.newBeeMallOrderItemVOS"
-            :key="one.orderId"
-            :num="one.goodsCount"
-            :price="one.sellingPrice"
-            desc="全场包邮"
-            :title="one.goodsName"
-            :thumb="prefix(one.goodsCoverImg)"
-          />
+  <div>
+    <header class="home-header">
+      <nav-bar/>
+    </header>
+
+    <div class="intro">
+      <h3 style="font-weight: bold; font-size: 30px;">Academic News:</h3>
+    </div>
+    <div class="news">
+      <div class="singe-news" v-for="news in academicList" v-bind:key="news.title">
+        <div>
+        <span>{{ news.title }}
+        </span>
+          <img :src="news.imgUrl" alt="">
         </div>
-      </van-list>
-    </van-pull-refresh>
+        <p>{{ news.content }}</p>
+      </div>
+    </div>
+    <div class="intro">
+      <h3 style="font-weight: bold; font-size: 30px;">Entertainment News:</h3>
+    </div>
+    <div class="entertain-news">
+      <div class="singe-news" v-for="news in entertainmentList" v-bind:key="news.title">
+        <div>
+          <el-image
+            style="width: 100%; height: 100%"
+            :src="news.imgUrl"
+            fit="fill"></el-image>
+          <span>{{ news.title }}</span>
+          <p>{{ news.content }}</p>
+          <span class="time">{{ news.date }}</span>
+        </div>
+      </div>
+    </div>
+    <footer-info/>
   </div>
 </template>
 
 <script>
-import sHeader from '@/components/SimpleHeader'
-import { getOrderList } from '../service/order'
-import { prefix } from '@/common/js/utils'
+import navBar from "@/components/NavBar";
+import footerInfo from "@/components/FooterInfo";
 
 export default {
   data() {
     return {
-      status: '',
-      loading: false,
-      finished: false,
-      refreshing: false,
-      list: [],
-      page: 1
+      academicList: [{
+        title: '学术动态1',
+        imgUrl: require('../assets/news.png'),
+        content: 'very happy',
+        date: '2022-01-01'
+      }, {
+        title: '学术动态2',
+        imgUrl: require('../assets/news.png'),
+        content: 'very happy too',
+        date: '2021-01-01'
+      }, {
+        title: '学术动态3',
+        imgUrl: require('../assets/news.png'),
+        content: 'very happy toooo',
+        date: '2020-01-01'
+      }],
+      entertainmentList: [{
+        title: '娱乐动态1',
+        imgUrl: require('../assets/news.png'),
+        content: 'very happy',
+        date: '2022-01-01'
+      }, {
+        title: '娱乐动态2',
+        imgUrl: require('../assets/news.png'),
+        content: 'very happy too',
+        date: '2021-01-01'
+      }, {
+        title: '娱乐动态3',
+        imgUrl: require('../assets/news.png'),
+        content: 'very happy toooo',
+        date: '2020-3-01'
+      }],
     }
   },
   components: {
-    sHeader
-  },
-  async mounted() {
-    // this.loadData()
-  },
-  methods: {
-    async loadData() {
-      const { data, data: { list } } = await getOrderList({ pageNumber: this.page, status: this.status })
-      this.list = this.list.concat(list)
-      this.totalPage = data.totalPage
-      this.loading = false;
-      if (this.page >= data.totalPage) this.finished = true
-    },
-    onChangeTab(name, title) {
-      this.status = name
-      this.onRefresh()
-    },
-    goTo(id) {
-      this.$router.push({ path: `order-detail?id=${id}` })
-    },
-    goBack() {
-      this.$router.go(-1)
-    },
-    onLoad() {
-      if (!this.refreshing && this.page < this.totalPage) {
-        this.page = this.page + 1
-      }
-      if (this.refreshing) {
-        this.list = [];
-        this.refreshing = false;
-      }
-      this.loadData()
-    },
-    onRefresh() {
-      this.refreshing = true
-      this.finished = false
-      this.loading = true
-      this.page = 1
-      this.onLoad()
-    },
+    footerInfo,
+    navBar,
   }
 }
 </script>
 
 <style lang="less" scoped>
-  @import '../common/style/mixin';
-  .order-box {
-    .order-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10000;
-      .fj();
-      .wh(100%, 44px);
-      line-height: 44px;
-      padding: 0 10px;
-      .boxSizing();
-      color: #252525;
-      background: #fff;
-      border-bottom: 1px solid #dcdcdc;
-      .order-name {
-        font-size: 14px;
-      }
+@import '../common/style/mixin';
+
+.home-header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  .wh(100%, 40px);
+  .fj();
+  line-height: 40px;
+  .boxSizing();
+  font-size: 12px;
+  color: #fff;
+  z-index: 10000;
+  box-shadow: 0 0 4px 0 @theme-color;
+}
+
+.intro {
+  .fj(flex-start);
+  width: 72%;
+  padding-left: 15%;
+  padding-top: 40px;
+  flex-direction: column;
+  text-align: left;
+}
+
+.news {
+  .fj(center);
+  background-color: #fefefe;
+  width: 72%;
+  margin-left: 15%;
+  flex-direction: column;
+  color: #4d5156;
+
+  .singe-news {
+    .fj(space-around);
+    margin: 16px 0;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    flex-direction: row;
+
+    div {
+      width: 30%;
+      .fj(center);
+      flex-direction: column;
     }
-    .order-tab {
-      margin-top: 44px;
-      position: fixed;
-      left: 0;
-      z-index: 1000;
-      width: 100%;
+
+    img {
+      .wh(260px, 150px);
+      border-radius: 8px;
+      margin: 10px;
     }
-    .order-list-refresh {
-      margin-top: 68px;
-      .van-card__content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      .van-pull-refresh__head {
-        background: #f9f9f9;
-      }
-      .van-list {
-        min-height: calc(100vh - 88px);
-        background: #f9f9f9;
-        margin-top: 20px;
-      }
-      .order-item-box {
-        margin: 20px 10px;
-        background-color: #fff;
-        .order-item-header {
-          padding: 10px 20px 0 20px;
-          display: flex;
-          justify-content: space-between;
-        }
-        .van-card {
-          background-color: #fff;
-          margin-top: 0;
-        }
-      }
+
+    span {
+      color: #000000;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      padding: 10px
+    }
+
+    p {
+      width: 70%;
+      font-size: 14px;
+      color: #4d5156;
+      padding: 15px
     }
   }
+}
+
+.entertain-news {
+  .fj(space-around);
+  background-color: #fefefe;
+  width: 72%;
+  margin-left: 15%;
+  padding-bottom: 15px;
+  flex-wrap: wrap;
+  color: #4d5156;
+
+  .singe-news {
+    .fj(space-around);
+    width: 28%;
+    color: #4d5156;
+    margin: 0 16px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+
+    div {
+      .fj(center);
+      flex-direction: column;
+    }
+
+    img {
+      .wh(100%, 100%);
+      border-radius: 8px;
+      margin: 10px;
+    }
+
+    span {
+      color: #000000;
+      font-weight: bold;
+      font-size: 13px;
+      text-align: left;
+      padding: 10px
+    }
+
+    .time {
+      font-size: 13px;
+      color: #999;
+    }
+
+    p {
+      width: 70%;
+      font-size: 12px;
+      color: #4d5156;
+      padding: 15px
+    }
+  }
+}
 </style>
