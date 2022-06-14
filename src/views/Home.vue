@@ -231,7 +231,6 @@ export default {
 .prof-list {
   display: flex;
   width: 100%;
-  padding-left: 14%;
   padding-top: 15px;
   flex-direction: column;
   .fj(center);
@@ -239,9 +238,11 @@ export default {
 
   .card {
     width: 72%;
+    margin-left: 15%;
+    margin-bottom: 15px;
+
     color: #4d5156;
     background-color: #fefefe;
-    margin: 15px 0;
 
     flex-direction: row;
     text-align: center;
@@ -269,7 +270,6 @@ export default {
 
       a {
         padding-top: 10px;
-
         :hover {
           color: @theme-color;
         }

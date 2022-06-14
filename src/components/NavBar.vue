@@ -11,13 +11,14 @@
                        </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="el-menu-item" v-for="child in menu.children" v-bind:key="child">
-                  <router-link tag="li" :to="menu.title+'/'+ child.path"><span>{{ child.title }}</span></router-link>
+                  <router-link tag="li" :to="{path:menu.path,query:{type:child.path}}"><span>{{ child.title }}</span>
+                  </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
           <div v-else>
-            <router-link tag="li" :to="menu.title"><span>{{ menu.title }}</span></router-link>
+            <router-link tag="li" :to="menu.path"><span>{{ menu.title }}</span></router-link>
           </div>
         </div>
       </div>
@@ -30,11 +31,11 @@
             <div v-for="menu in rightNavItems" v-bind:key="menu" class="collapse_item">
               <el-collapse-item v-if="menu.hasChild" :title="menu.title" :name="menu.index">
                 <div v-for="child in menu.children" v-bind:key="child">
-                  <router-link tag="li" :to="menu.title+'/'+ child.path">
-                    <span>{{ child.title }}</span></router-link>
+                  <router-link tag="li" :to="{path:menu.path,query:{type:child.path}}"><span>{{ child.title }}</span>
+                  </router-link>
                 </div>
               </el-collapse-item>
-              <router-link v-else tag="li" :to="menu.title"><span>{{ menu.title }}</span></router-link>
+              <router-link v-else tag="li" :to="menu.path"><span>{{ menu.title }}</span></router-link>
             </div>
           </el-collapse>
         </el-submenu>
@@ -50,45 +51,44 @@ export default {
   data() {
     return {
       screenWidth: document.body.clientWidth, //存储窗口大小,保存初始打开页面时的宽度
-      isCollapse: true,
       navItems: [
         {
-          title: "Home",
+          title: "Home", path: "/home",
           hasChild: false,
         },
         {
-          title: "Research",
+          title: "Research", path: "/research",
           hasChild: false,
         },
         {
-          title: "Publications",
+          title: "Publication", path: "/publication",
           hasChild: true,
           children: [
             {
               title: "By Topic",
-              path: "byTopic"
+              path: "topic"
             },
             {
               title: "By Date",
-              path: "byDate"
+              path: "date"
             }
           ]
         },
         {
-          title: "People",
+          title: "People", path: "/people",
           hasChild: false,
         },
         {
-          title: "Applications",
+          title: "Application", path: "/application",
           hasChild: false,
 
         },
         {
-          title: "About",
+          title: "About", path: "/about",
           hasChild: false,
         },
         {
-          title: "Resource",
+          title: "Resource", path: "/resource",
           hasChild: false,
         },
       ],
@@ -129,6 +129,10 @@ export default {
 
 <style lang="less" scoped>
 @import '../common/style/mixin';
+
+.router-link-active {
+  color: @theme-color;
+}
 
 .el-dropdown-link {
   cursor: pointer;
@@ -253,9 +257,6 @@ export default {
         text-align: center;
         color: #000;
 
-        &.router-link-active {
-          color: @theme-color;
-        }
 
         span {
           font-size: 11px;

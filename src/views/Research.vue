@@ -4,7 +4,7 @@
       <nav-bar/>
     </header>
 
-    
+
     <div style="margin:auto; width:90%;">
 
 
@@ -29,7 +29,7 @@
 
       </div>
       <el-row :gutter="20" v-for="n in Math.ceil((Object.keys(projectList).length+1)/2)" :key="n">
-      
+
         <el-col :span="12"  v-for="i in 2" :key="i" >
             <el-container style=" border: 1px solid #eee;border-radius: 4px;background-color:#eee" v-if="(n-1)*2+i<=Object.keys(projectList).length" >
             <el-aside width="100px" style="margin:auto;text-align: center; ">
@@ -52,17 +52,15 @@
                   <span style="font-weight:bold" class="card-text">Principal Investigator: </span>
                   <span class="card-text">{{projectList.find(item => item.id == (n-1)*2+i).principal}}</span>
               </div>
-               
+
              </el-main>
             </el-container>
           </el-container>
         </el-col>
       </el-row>
     </div>
-    
-     
-    
-    
+
+
   </div>
 </template>
 
@@ -123,8 +121,8 @@ export default {
       message: '加载中...',
       forbidClick: true
     });
-  
-    
+
+
     Toast.clear()
   },
   methods: {
@@ -158,14 +156,13 @@ export default {
 
   }
   .el-row {
-   
+
     margin-top: 20px;
-    
+
   }
 
- 
 
-  .el-card{
+.el-card{
     margin: auto;
     width: 80%;
     border: 0ch;
@@ -182,8 +179,8 @@ export default {
       display: table;
       content: "";
   }
-  
-  .clearfix:after {
+
+.clearfix:after {
       clear: both
   }
   .icon {
