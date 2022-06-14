@@ -45,11 +45,11 @@ const routes = [
   //   name: 'seminars',
   //   component: () => import(/* webpackChunkName: "about" */ '../views/Seminars.vue'),
   // },
-  // {
-  //   path: '/people',
-  //   name: 'people',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/People.vue'),
-  // },
+  {
+    path: '/people',
+    name: 'people',
+    component: () => import(/* webpackChunkName: "about" */ '../views/People.vue'),
+  },
   // {
   //   path: '/application',
   //   name: 'application',
