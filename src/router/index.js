@@ -14,7 +14,17 @@ const routes = [
   {
     path: '/publication',
     name: 'publication',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Publication.vue'),
+    component: () => import(/* webpackChunkName: "login" */ '../views/PublicationTopic.vue'),
+  },
+  {
+    path: '/publication/topic',
+    name: 'publicationTopic',
+    component: () => import(/* webpackChunkName: "login" */ '../views/PublicationTopic.vue'),
+  },
+  {
+    path: '/publication/date',
+    name: 'publicationDate',
+    component: () => import(/* webpackChunkName: "login" */ '../views/PublicationDate.vue'),
   },
   {
     path: '/home',
@@ -37,7 +47,7 @@ const routes = [
   //   meta: {
   //     index: 1
   //   },
-  //   component: () => import(/* webpackChunkName: "category" */ '../views/Publication.vue'),
+  //   component: () => import(/* webpackChunkName: "category" */ '../views/PublicationDate.vue'),
   // },
   // {
   //   path: '/seminars',
@@ -49,11 +59,11 @@ const routes = [
     name: 'people',
     component: () => import(/* webpackChunkName: "about" */ '../views/People.vue'),
   },
-  // {
-  //   path: '/application',
-  //   name: 'application',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/Application.vue'),
-  // },
+  {
+    path: '/application',
+    name: 'application',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Application.vue'),
+  },
   // {
   //   path: '/About',
   //   name: 'about',

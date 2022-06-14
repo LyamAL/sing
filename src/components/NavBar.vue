@@ -11,7 +11,7 @@
                        </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="el-menu-item" v-for="child in menu.children" v-bind:key="child">
-                  <router-link tag="li" :to="{path:menu.path,query:{type:child.path}}"><span>{{ child.title }}</span>
+                  <router-link tag="li" :to="child.path"><span>{{ child.title }}</span>
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -31,7 +31,7 @@
             <div v-for="menu in rightNavItems" v-bind:key="menu" class="collapse_item">
               <el-collapse-item v-if="menu.hasChild" :title="menu.title" :name="menu.index">
                 <div v-for="child in menu.children" v-bind:key="child">
-                  <router-link tag="li" :to="{path:menu.path,query:{type:child.path}}"><span>{{ child.title }}</span>
+                  <router-link tag="li" :to="child.path"><span>{{ child.title }}</span>
                   </router-link>
                 </div>
               </el-collapse-item>
@@ -66,11 +66,11 @@ export default {
           children: [
             {
               title: "By Topic",
-              path: "topic"
+              path: "/publication/topic"
             },
             {
               title: "By Date",
-              path: "date"
+              path: "/publication/date"
             }
           ]
         },
