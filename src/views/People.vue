@@ -6,11 +6,11 @@
     </header>
 
     
-    <div  style="margin:auto; width:90%;margin-top:100px;"  v-if="activeIndex=='faculty'">
+    <div  style="margin:auto; width:90%;margin-top:100px; padding-bottom: 15px;"  v-if="activeIndex=='faculty'">
       <div class="big-title">
           <span type="text" >Faculty </span>
 
-      </div>
+      </div >
        <div v-for="n in Object.keys(facultyList).length" :key="n">
           <el-row :gutter="0">
               <el-col :span=24 >
@@ -41,7 +41,7 @@
         </div>
       
     </div>
-
+    <footerInfo/>
   </div>
 </template>
 
@@ -49,6 +49,7 @@
 
 <script>
 import navBar from '@/components/NavBar'
+import footerInfo from '@/components/FooterInfo'
 export default {
   name: "people",
   props: [],
@@ -100,7 +101,8 @@ export default {
     };
   },
   components: {
-    navBar
+    navBar,
+    footerInfo,
   },
   methods: {
     goToUrl(url){

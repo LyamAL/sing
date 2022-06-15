@@ -36,11 +36,19 @@ const routes = [
     name: 'research',
     component: () => import(/* webpackChunkName: "home" */ '../views/Research.vue'),
   },
-  {
-    path: '/news',
-    name: 'news',
-    component: () => import(/* webpackChunkName: "news" */ '../views/News.vue'),
-  },
+  // {
+  //   path: '/news',
+  //   name: 'news',
+  //   component: () => import(/* webpackChunkName: "news" */ '../views/News.vue'),
+  // },
+  // {
+  //   path: '/project',
+  //   name: 'project',
+  //   meta: {
+  //     index: 1
+  //   },
+  //   component: () => import(/* webpackChunkName: "category" */ '../views/PublicationDate.vue'),
+  // },
   // {
   //   path: '/seminars',
   //   name: 'seminars',
@@ -56,16 +64,16 @@ const routes = [
     name: 'application',
     component: () => import(/* webpackChunkName: "about" */ '../views/Application.vue'),
   },
-  {
-    path: '/joinus',
-    name: 'join-us',
-    component: () => import(/* webpackChunkName: "about" */ '../views/JoinUs.vue'),
-  },
   // {
-  //   path: '/resource',
-  //   name: 'resource',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/Resource.vue'),
-  // }
+  //   path: '/About',
+  //   name: 'about',
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+  // },
+  {
+     path: '/resource',
+     name: 'resource',
+     component: () => import(/* webpackChunkName: "about" */ '../views/ResourceLogin.vue'),
+  }
 ]
 
 const router = new VueRouter({
