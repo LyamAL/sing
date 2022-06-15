@@ -36,11 +36,11 @@ const routes = [
     name: 'research',
     component: () => import(/* webpackChunkName: "home" */ '../views/Research.vue'),
   },
-  // {
-  //   path: '/news',
-  //   name: 'news',
-  //   component: () => import(/* webpackChunkName: "news" */ '../views/News.vue'),
-  // },
+  {
+    path: '/news',
+    name: 'news',
+    component: () => import(/* webpackChunkName: "news" */ '../views/News.vue'),
+  },
   // {
   //   path: '/project',
   //   name: 'project',
