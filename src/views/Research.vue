@@ -155,24 +155,25 @@ export default {
     box-shadow: 0 0 3px 0 @theme-color;
 
   }
-  .el-row {
 
-    margin-top: 20px;
+.el-row {
 
-  }
+  margin-top: 20px;
 
-
-.el-card{
-    margin: auto;
-    width: 80%;
-    border: 0ch;
-  }
+}
 
 
-  .image {
-    width: 100%;
-    display: block;
-  }
+.el-card {
+  margin: auto;
+  width: 80%;
+  border: 0ch;
+}
+
+
+.image {
+  width: 100%;
+  display: block;
+}
 
   .clearfix:before,
   .clearfix:after {
@@ -181,8 +182,8 @@ export default {
   }
 
 .clearfix:after {
-      clear: both
-  }
+  clear: both
+}
   .icon {
     width: 90%;
   }

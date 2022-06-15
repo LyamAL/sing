@@ -56,11 +56,11 @@ const routes = [
     name: 'application',
     component: () => import(/* webpackChunkName: "about" */ '../views/Application.vue'),
   },
-  // {
-  //   path: '/About',
-  //   name: 'about',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-  // },
+  {
+    path: '/joinus',
+    name: 'join-us',
+    component: () => import(/* webpackChunkName: "about" */ '../views/JoinUs.vue'),
+  },
   // {
   //   path: '/resource',
   //   name: 'resource',
