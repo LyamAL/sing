@@ -6,7 +6,7 @@
     </header>
 
     
-    <div  style="margin:auto; width:90%;margin-top:100px; padding-bottom: 15px;"  v-if="activeIndex=='faculty'">
+    <div  class="people"   v-if="activeIndex=='faculty'">
       <div class="big-title">
           <span type="text" >Faculty </span>
 
@@ -132,26 +132,30 @@ export default {
     display: flex;
     box-shadow: 0 0 3px 0 @theme-color;
 
-  }
- .el-row {
-    margin-top: 20px;
-  }
+    }
+
+    .people{
+        margin:auto; width:72%;margin-top:60px; padding-bottom: 15px;
+    }
+    .el-row {
+        margin-top: 20px;
+    }
 
 
- .el-divider--horizontal{
-     margin: 8px 0;
-     background: 0 0;
-     border-top: 2px dashed rgba(56,149,191 ,0.25);
- }
-  .el-card{
-    margin: 0;
-    width: 90%;
-    border: 0ch;
-  }
+    .el-divider--horizontal{
+        margin: 8px 0;
+        background: 0 0;
+        border-top: 2px dashed rgba(56,149,191 ,0.25);
+    }
+    .el-card{
+        margin: 0;
+        width: 90%;
+        border: 0ch;
+    }
 
 
-  .image {
-    width: 90%;
-    display: block;
-  }
+    .image {
+        width: 90%;
+        display: block;
+    }
 </style>

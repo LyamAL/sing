@@ -28,15 +28,46 @@
           <span type="text" >Projects</span>
 
       </div>
-      <el-row :gutter="20" v-for="n in Math.ceil((Object.keys(projectList).length+1)/2)" :key="n">
+      <el-row :gutter="20">
+        <div v-for="project in projectList" :key="project.id">
+          <el-col :span="12" style=" margin-bottom:10px">
+            <el-container style=" border: 1px solid #eee;border-radius: 4px;background-color:#eee" >
+            <el-aside width="120px" style="margin:auto;text-align: center; ">
+            <img :src="project.figurl" class="icon">
+            </el-aside>
+            <el-container>
+             <el-main style="padding-left:0;">
+               <div>
+                   <span class="small-title" style="margin_bottom:10px">{{project.title}}</span>
+               </div>
+              <div>
+                  <span style="font-weight:bold" class="card-text">Source:</span>
+                  <span class="card-text">{{project.source}}</span>
+              </div>
+              <div>
+                  <span style="font-weight:bold" class="card-text">Duration: </span>
+                  <span class="card-text">{{project.duration}}</span>
+              </div>
+              <div>
+                  <span style="font-weight:bold" class="card-text">Principal Investigator: </span>
+                  <span class="card-text">{{project.principal}}</span>
+              </div>
 
+             </el-main>
+            </el-container>
+          </el-container>
+        </el-col>
+        </div>
+      </el-row>
+      <!-- <el-row :gutter="20" v-for="n in Math.ceil((Object.keys(projectList).length+1)/2)" :key="n">
+      <div>
         <el-col :span="12"  v-for="i in 2" :key="i" >
             <el-container style=" border: 1px solid #eee;border-radius: 4px;background-color:#eee" v-if="(n-1)*2+i<=Object.keys(projectList).length" >
-            <el-aside width="100px" style="margin:auto;text-align: center; ">
+            <el-aside width="120px" style="margin:auto;text-align: center; ">
             <img :src="projectList.find(item => item.id == (n-1)*2+i).figurl" class="icon">
             </el-aside>
             <el-container>
-             <el-main>
+             <el-main style="padding-left:0;">
                <div>
                    <span class="small-title" style="margin_bottom:10px">{{projectList.find(item => item.id == (n-1)*2+i).title}}</span>
                </div>
@@ -57,7 +88,9 @@
             </el-container>
           </el-container>
         </el-col>
-      </el-row>
+      </div>
+        
+      </el-row> -->
     </div>
 
     <footer-info/>
@@ -72,6 +105,8 @@ import {getLocal} from '@/common/js/utils'
 
 import footerInfo from '@/components/FooterInfo'
 import {Toast} from 'vant'
+
+import axios from '../utils/axios'
 
 export default {
   name: 'research',
@@ -114,18 +149,17 @@ export default {
     navBar,
     footerInfo,
   },
-  async mounted() {
-    const token = getLocal('token')
-    if (token) {
-      this.isLogin = true
-    }
+  created() {
+
     // window.addEventListener('scroll', this.pageScroll)
     Toast.loading({
       message: '加载中...',
       forbidClick: true
     });
 
-
+   
+    this.getProjects()
+    
     Toast.clear()
   },
   methods: {
@@ -134,6 +168,13 @@ export default {
     //   let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
     //   scrollTop > 100 ? this.headerScroll = true : this.headerScroll = false
     // },
+    async getProjects(){
+      axios.get('/getProjects').then(res=>{
+        console.log(res.research_project_list),
+        this.projectList=res.research_project_list,
+        console.log( this.projectList)
+      })
+    },
   }
 }
 </script>
@@ -188,7 +229,7 @@ export default {
       clear: both
   }
   .icon {
-    width: 90%;
+    width: 70%;
   }
 
 </style>

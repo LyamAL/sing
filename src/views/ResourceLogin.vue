@@ -22,22 +22,24 @@
               v-model="username"
               name="username"
               label="用户名"
-              placeholder="用户名"
-              :rules="[{ required: true, message: '请填写用户名' }]"
+              left-icon="contact"
+              placeholder="请输入用户名"
+              label-align=right
             />
             <van-field
               v-model="password"
               type="password"
               name="password"
               label="密码"
-              placeholder="密码"
-              :rules="[{ required: true, message: '请填写密码' }]"
+              left-icon="closed-eye"
+              placeholder="请输入密码"
+              label-align=right
             />
             <div class="verify">
               <Verify ref="loginVerifyRef" @error="error" :showButton="false" @success="success" :width="'100%'" :fontSize="'0.3rem'" :type="2"></Verify>
             </div>
             <div style="text-align:center; margin-top:10px">
-              <el-button type="primary" round native-type="submit" >登 录</el-button>
+              <van-button type="primary" round native-type="submit" >登 录</van-button>
             </div>
           </van-form>
         </div>
@@ -52,18 +54,20 @@
 <script>
 
 import navBar from '@/components/NavBar'
-import {getLocal} from '@/common/js/utils'
+import {setLocal} from '@/common/js/utils'
 
 import footerInfo from '@/components/FooterInfo'
 import {Toast} from 'vant'
 import Verify from 'vue2-verify'
+import axios from '../utils/axios'
+
+
+
 export default {
   data() {
     return {
-      username: '',
-      password: '',
-      username1: '',
-      password1: '',
+      username:[],
+      password:[],
       type: 'login',
       verify: false
     }
@@ -88,13 +92,35 @@ export default {
         Toast.fail('验证码未填或填写错误!')
         return
       }
+      if(values.username == ''){
+        this.$toast("用户名不能为空")
+        return 
+      }
+      if(values.password == ''){
+        this.$toast("密码不能为空")
+        return 
+      }
+      
       if (this.type == 'login') {
-        const { data, resultCode } = await login({
-          "loginName": values.username,
-          "passwordMd5": this.$md5(values.password)
+        var formData = new FormData()
+        formData.append('username', values.username)
+        formData.append('password', values.password)
+        
+        console.log("111111",formData)
+        await axios.post('/login',formData).then(res=>{
+          this.$message(res.message)
+           // 如果成功
+          console.log('tocken:',res.JSESSIONID)
+          // 登录成功,将token保存到本地,
+          setLocal('token', res.JSESSIONID)
+          // 存储token开始时间
+          setLocal('tokenStartTime',new Date().getTime())
+          // 跳转到home页面
+          this.$router.push("/Resource")
         })
-        setLocal('token', data)
-        window.location.href = '/'
+        
+        
+      
       } 
     },
     success(obj) {
@@ -125,29 +151,14 @@ export default {
     .login-body {
       padding: 0 20px;
     }
-    .login {
-      .link-register {
-        font-size: 14px;
-        margin-bottom: 20px;
-        color: #1989fa;
-        display: inline-block;
-      }
-    }
-    .register {
-      .link-login {
-        font-size: 14px;
-        margin-bottom: 20px;
-        color: #1989fa;
-        display: inline-block;
-      }
-    }
+
     .verify-bar-area {
       margin-top: 24px;
       .verify-left-bar {
-        border-color: #1baeae;
+        border-color: #c0c0c0;
       }
       .verify-move-block {
-        background-color: #1baeae;
+        background-color: #c0c0c0;
         color: #fff;
       }
     }
@@ -192,6 +203,7 @@ export default {
   .el-card__body{
       padding-top: 0px;
       padding-bottom: 0px;
+     
   }
 
   .el-divider--horizontal{
@@ -199,13 +211,16 @@ export default {
      border-top: 2px solid rgba(56,149,191,1);
  }
 
-.el-button--primary,.el-button--primary.is-active, .el-button--primary:active{background: rgba(56,149,191,1);width:60%;}
+.van-button--primary,.van-button--primary.is-active, .van-button--primary:active{background: rgba(56,149,191,1);width:60%;}
 
-.el-button--primary，.el-button--primary:focus:hover {
-    background: rgba(56,149,191,1);
-    border-color: rgba(56,149,191,1);
-    color:rgba(56,149,191,1);
+.van-button--primary:focus,.van-button--primary:hover {
+    background: rgba(56,149,191,0.65);
+    border-color: rgba(56,149,191,0.65);
+    color:rgb(255, 255, 255);
     width:60%;
+}
+.van-cell__title.van-field__label.van-field__label--right {
+    width: 20%;
 }
 
 </style>
