@@ -15,16 +15,16 @@
         <el-tab-pane label="All" name="All">
           <van-list v-if="activeName === 'All'">
             <van-cell v-for="paper in paperList" :key="paper">{{ paper.author }}.
-              <router-link :to="paper.url" style="color: #3895bf">{{ paper.name }}</router-link>
-              , in {{ paper.article }} {{ paper.year }} (<strong>{{ paper.article }}</strong>)
+              <router-link :to="paper.url" style="color: #3895bf">{{ paper.title }}</router-link>
+              , in {{ paper.publication }} {{ paper.year }} (<strong>{{ paper.publication }}</strong>)
             </van-cell>
           </van-list>
         </el-tab-pane>
         <el-tab-pane v-for="y in yearList" :label="y.toString()" v-bind:key="y" :name="y.toString()">
           <van-list v-if="activeName === y.toString()">
             <van-cell v-for="paper in paperList" :key="paper">{{ paper.author }}.
-              <router-link :to="paper.url" style="color: #3895bf">{{ paper.name }}</router-link>
-              , in {{ paper.article }} {{ paper.year }} (<strong>{{ paper.article }}</strong>)
+              <router-link :to="paper.url" style="color: #3895bf">{{ paper.title }}</router-link>
+              , in {{ paper.publication }} {{ paper.year }} (<strong>{{ paper.publication }}</strong>)
             </van-cell>
           </van-list>
         </el-tab-pane>
@@ -35,12 +35,13 @@
 </template>
 
 <script>
-import {Toast} from 'vant'
 import navBar from "@/components/NavBar";
 import footerInfo from "@/components/FooterInfo";
+import {getAllPapers} from '@/service/publication'
+import {Toast} from 'vant'
 
 export default {
-  name: "publication",
+  name: "publication/date",
   components: {
     navBar,
     footerInfo,
@@ -48,145 +49,160 @@ export default {
   data() {
     return {
       activeName: 'All',
-      paperList: [
-        {
-          date: '2016-03-03',
-          year: 2016,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'IEEE',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2019-03-03',
-          year: 2019,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'ICMP',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2019-03-04',
-          year: 2019,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'AAAI',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2019-04-03',
-          year: 2019,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'IEEE',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-
-        {
-          date: '2020-03-04',
-          year: 2020,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'AAAI',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2020-09-04',
-          year: 2020,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'ICMP',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2021-03-03',
-          year: 2021,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'KDD',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2022-03-03',
-          year: 2022,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'ICMP',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-      ],
-      source: [
-        {
-          date: '2016-03-03',
-          year: 2016,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'IEEE',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2019-03-03',
-          year: 2019,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'ICMP',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2019-03-04',
-          year: 2019,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'AAAI',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2019-04-03',
-          year: 2019,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'IEEE',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-
-        {
-          date: '2020-03-04',
-          year: 2020,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'AAAI',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2020-09-04',
-          year: 2020,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'ICMP',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2021-03-03',
-          year: 2021,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'KDD',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-        {
-          date: '2022-03-03',
-          year: 2022,
-          name: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
-          article: 'ICMP',
-          author: 'Wang,Li,Zhang',
-          url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
-        },
-      ],
-      yearList: [2016, 2019, 2020, 2021, 2022],
+      paperList: [],
+      source: [],
+      // paperList: [
+      //   {
+      //     date: '2016-03-03',
+      //     year: 2016,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'IEEE',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2019-03-03',
+      //     year: 2019,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'ICMP',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2019-03-04',
+      //     year: 2019,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'AAAI',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2019-04-03',
+      //     year: 2019,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'IEEE',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //
+      //   {
+      //     date: '2020-03-04',
+      //     year: 2020,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'AAAI',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2020-09-04',
+      //     year: 2020,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'ICMP',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2021-03-03',
+      //     year: 2021,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'KDD',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2022-03-03',
+      //     year: 2022,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'ICMP',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      // ],
+      // source: [
+      //   {
+      //     date: '2016-03-03',
+      //     year: 2016,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'IEEE',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2019-03-03',
+      //     year: 2019,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'ICMP',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2019-03-04',
+      //     year: 2019,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'AAAI',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2019-04-03',
+      //     year: 2019,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'IEEE',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //
+      //   {
+      //     date: '2020-03-04',
+      //     year: 2020,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'AAAI',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2020-09-04',
+      //     year: 2020,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'ICMP',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2021-03-03',
+      //     year: 2021,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'KDD',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      //   {
+      //     date: '2022-03-03',
+      //     year: 2022,
+      //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
+      //     publication: 'ICMP',
+      //     author: 'Wang,Li,Zhang',
+      //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
+      //   },
+      // ],
+      // yearList: [2016, 2019, 2020, 2021, 2022],
+      yearList: [],
     }
   },
-
+  mounted() {
+    this.init()
+  },
   methods: {
+    async init() {
+      Toast.loading({message: '加载中...', forbidClick: true});
+      const {data: list} = await getAllPapers()
+      let temp = list;
+      temp.sort(this.cmp("date"));
+      this.source = temp;
+      this.paperList = temp
+      this.yearList = this.getYearList(temp);
+      Toast.clear()
+    },
     filterPaper(year) {
       let temp = [];
       for (let i = 0; i < this.source.length; i++) {
@@ -202,8 +218,24 @@ export default {
         this.paperList = this.source;
         return
       }
-      this.filterPaper(Number(year))
+      this.filterPaper(year)
       this.activeName = tab.label
+    },
+    getYearList(src) {
+      let years = new Set();
+      for (let i = 0; i < src.length; i++) {
+        let year = src[i]["date"].split("-")[0];
+        years.add(year);
+        this.source[i]['year'] = year
+      }
+      return Array.from(years)
+    },
+    cmp(p) {
+      return function (a, b) {
+        let x = parseInt(a[p].replace('-', ''));
+        let y = parseInt(b[p].replace('-', ''));
+        return y - x
+      }
     }
   }
 }
