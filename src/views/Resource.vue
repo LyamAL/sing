@@ -19,24 +19,12 @@
                 </template>
             </el-menu-item>
             </el-menu>
-            <el-menu @select="filterPaper">
-            <el-menu-item index="all">
-                <template slot="title">
-                    <i class="el-icon-menu"></i>
-                    全部类型
-                </template>
-            </el-menu-item>
-            <el-menu-item :index="meeting">
-                <template slot="title">
-                    会议
-                </template>
-            </el-menu-item>
-            </el-menu>
+            
         </el-aside>
             <el-main style="height: 800px">
                 <el-timeline>
                     <el-timeline-item :timestamp="item.time" placement="top" v-for="(item, index) in items" :key="index">
-                        <el-card v-show="item.type==='meeting'">
+                        <el-card>
                         <div slot="header" class="clearfix">
                             <span>
                                 <span style="margin-right: 20px">
@@ -68,7 +56,7 @@
 </template>
 
 <script>
-    import axios from "axios"
+    import axios from '../utils/axios'
     import navBar from '@/components/NavBar'
     import {getLocal} from '@/common/js/utils'
 
@@ -80,7 +68,6 @@
                 items: [],
                 source: [],
                 yearList: [],
-                type:"meeting",
                 isLogin: false,
             }
         },
@@ -110,24 +97,9 @@
                 this.source = temp;
                 this.yearList = this.getYearList(temp);
             })*/
-
-            let temp =[
-                {"id": 1,
-				"type":"meeting",
-				"title": "Networking Brain for Urban Cyber-Twin System",
-				"resources": [
-					{
-					"url":"https://qa.apipost.cn/t/houduan"
-					}
-				],
-				"detail": "Ministry of Science and Technology Research and Development Project",
-				"time": "01-01-2021"}
-            ]
-            temp.sort(this.cmp("time"));
-            
-            this.items = temp;
-            this.source = temp;
-            this.yearList = this.getYearList(temp);
+            this.getSources()
+            console.log(this.items)
+           
         },
         methods:{
             filterPaper(year, _){
@@ -146,7 +118,7 @@
             getYearList(src){
                 let years = new Set();
                 for(let i=0; i < src.length; i++){
-                    let year = src[i]["time"].split("-")[2];
+                    let year = src[i]["time"].split("-")[0];
                     years.add(year);
                     this.source[i]['year'] = year
                 }
@@ -158,7 +130,16 @@
                     let y = parseInt(b[p].replace('-',''));
                     return y - x
                 }
-            }
+            },
+            async getSources(){
+                axios.get('/getSources').then(res=>{
+                    let temp=res.sources_list
+                    temp.sort(this.cmp("time"))
+                    this.items=temp
+                    this.source = temp
+                    this.yearList = this.getYearList(temp)
+                })
+            },
         }
     }
 </script>
