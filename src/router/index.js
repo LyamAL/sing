@@ -44,19 +44,6 @@ const routes = [
     name: 'news',
     component: () => import(/* webpackChunkName: "news" */ '../views/News.vue'),
   },
-  // {
-  //   path: '/project',
-  //   name: 'project',
-  //   meta: {
-  //     index: 1
-  //   },
-  //   component: () => import(/* webpackChunkName: "category" */ '../views/PublicationDate.vue'),
-  // },
-  // {
-  //   path: '/seminars',
-  //   name: 'seminars',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/Seminars.vue'),
-  // },
   {
     path: '/people',
     name: 'people',

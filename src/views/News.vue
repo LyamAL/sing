@@ -12,9 +12,9 @@
         <div>
         <span>{{ news.title }}
         </span>
-          <img :src="news.imgUrl" alt="">
+          <img :src="news.figurl" alt="">
         </div>
-        <p>{{ news.content }}</p>
+        <p>{{ news.detail }}</p>
       </div>
     </div>
     <div class="intro">
@@ -25,10 +25,10 @@
         <div>
           <el-image
             style="width: 100%; height: 100%"
-            :src="news.imgUrl"
+            :src="news.figurl"
             fit="fill"></el-image>
           <span>{{ news.title }}</span>
-          <p>{{ news.content }}</p>
+          <p>{{ news.detail }}</p>
           <span class="time">{{ news.date }}</span>
         </div>
       </div>
@@ -40,47 +40,65 @@
 <script>
 import navBar from "@/components/NavBar";
 import footerInfo from "@/components/FooterInfo";
+import {Toast} from "vant";
+import {getAcademicNews, getEntertainmentNews} from "@/service/news";
 
 export default {
   data() {
     return {
-      academicList: [{
-        title: '学术动态1',
-        imgUrl: require('../assets/news.png'),
-        content: 'very happy',
-        date: '2022-01-01'
-      }, {
-        title: '学术动态2',
-        imgUrl: require('../assets/news.png'),
-        content: 'very happy too',
-        date: '2021-01-01'
-      }, {
-        title: '学术动态3',
-        imgUrl: require('../assets/news.png'),
-        content: 'very happy toooo',
-        date: '2020-01-01'
-      }],
-      entertainmentList: [{
-        title: '娱乐动态1',
-        imgUrl: require('../assets/news.png'),
-        content: 'very happy',
-        date: '2022-01-01'
-      }, {
-        title: '娱乐动态2',
-        imgUrl: require('../assets/news.png'),
-        content: 'very happy too',
-        date: '2021-01-01'
-      }, {
-        title: '娱乐动态3',
-        imgUrl: require('../assets/news.png'),
-        content: 'very happy toooo',
-        date: '2020-3-01'
-      }],
+      academicList: [],
+      entertainmentList: [],
+      // academicList: [{
+      //   title: '学术动态1',
+      //   figurl: require('../assets/news.png'),
+      //   detail: 'very happy',
+      //   date: '2022-01-01'
+      // }, {
+      //   title: '学术动态2',
+      //   figurl: require('../assets/news.png'),
+      //   detail: 'very happy too',
+      //   date: '2021-01-01'
+      // }, {
+      //   title: '学术动态3',
+      //   figurl: require('../assets/news.png'),
+      //   detail: 'very happy toooo',
+      //   date: '2020-01-01'
+      // }],
+      // entertainmentList: [{
+      //   title: '娱乐动态1',
+      //   figurl: require('../assets/news.png'),
+      //   detail: 'very happy',
+      //   date: '2022-01-01'
+      // }, {
+      //   title: '娱乐动态2',
+      //   figurl: require('../assets/news.png'),
+      //   detail: 'very happy too',
+      //   date: '2021-01-01'
+      // }, {
+      //   title: '娱乐动态3',
+      //   figurl: require('../assets/news.png'),
+      //   detail: 'very happy toooo',
+      //   date: '2020-3-01'
+      // }],
     }
+
   },
   components: {
     footerInfo,
     navBar,
+  },
+  mounted() {
+    this.init()
+  },
+  methods: {
+    async init() {
+      Toast.loading({message: '加载中...', forbidClick: true});
+      const {data: academicList} = await getAcademicNews()
+      const {data: entertainmentList} = await getEntertainmentNews()
+      this.academicList = academicList;
+      this.entertainmentList = entertainmentList
+      Toast.clear()
+    },
   }
 }
 </script>
