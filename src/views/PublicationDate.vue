@@ -41,7 +41,7 @@ import {getAllPapers} from '@/service/publication'
 import {Toast} from 'vant'
 
 export default {
-  name: "publication/date",
+  name: "publicationDate",
   components: {
     navBar,
     footerInfo,
@@ -195,8 +195,10 @@ export default {
   methods: {
     async init() {
       Toast.loading({message: '加载中...', forbidClick: true});
-      const {data: list} = await getAllPapers()
-      let temp = list;
+      const {data} = await getAllPapers()
+      let temp = data.publication_list
+      console.log(temp)
+      // let temp = list;
       temp.sort(this.cmp("date"));
       this.source = temp;
       this.paperList = temp

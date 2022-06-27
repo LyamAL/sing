@@ -41,7 +41,7 @@ import footerInfo from "@/components/FooterInfo";
 import {getAllPapers} from '@/service/publication'
 
 export default {
-  name: "publication/topic",
+  name: "publicationTopic",
   components: {
     navBar,
     footerInfo,
@@ -212,11 +212,12 @@ export default {
     async init() {
       Toast.loading({message: '加载中...', forbidClick: true});
       const {data: list} = await getAllPapers()
-      let temp = list;
+      let temp = list.publication_list
+      console.log(temp)
       temp.sort(this.cmp("date"));
       this.source = temp;
       this.paperList = temp
-      this.yearList = this.getTopicList(temp);
+      this.topicList = this.getTopicList(temp);
       Toast.clear()
     },
     getTopicList(src) {

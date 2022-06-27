@@ -1,6 +1,6 @@
 import axios from '../utils/axios'
 
 export function getAllPapers() {
-  return axios.get('/');
+  return axios.get('/getPublications');
 }
 

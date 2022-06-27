@@ -44,6 +44,7 @@ import {Toast} from "vant";
 import {getAcademicNews, getEntertainmentNews} from "@/service/news";
 
 export default {
+  name: 'News',
   data() {
     return {
       academicList: [],
@@ -95,8 +96,10 @@ export default {
       Toast.loading({message: '加载中...', forbidClick: true});
       const {data: academicList} = await getAcademicNews()
       const {data: entertainmentList} = await getEntertainmentNews()
-      this.academicList = academicList;
-      this.entertainmentList = entertainmentList
+      this.academicList = academicList.Academic_News;
+      this.entertainmentList = entertainmentList.Entertain_News
+      console.log(this.academicList)
+      console.log(this.entertainmentList)
       Toast.clear()
     },
   }

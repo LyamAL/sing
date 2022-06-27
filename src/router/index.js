@@ -17,17 +17,17 @@ const routes = [
   {
     path: '/publication',
     name: 'publication',
-    component: () => import(/* webpackChunkName: "login" */ '../views/PublicationTopic.vue'),
+    component: () => import(/* webpackChunkName: "publication" */ '../views/PublicationTopic.vue'),
   },
   {
     path: '/publication/topic',
     name: 'publicationTopic',
-    component: () => import(/* webpackChunkName: "login" */ '../views/PublicationTopic.vue'),
+    component: () => import(/* webpackChunkName: "publicationTopic" */ '../views/PublicationTopic.vue'),
   },
   {
     path: '/publication/date',
     name: 'publicationDate',
-    component: () => import(/* webpackChunkName: "login" */ '../views/PublicationDate.vue'),
+    component: () => import(/* webpackChunkName: "publicationDate" */ '../views/PublicationDate.vue'),
   },
   {
     path: '/home',
@@ -37,7 +37,7 @@ const routes = [
   {
     path: '/research',
     name: 'research',
-    component: () => import(/* webpackChunkName: "home" */ '../views/Research.vue'),
+    component: () => import(/* webpackChunkName: "research" */ '../views/Research.vue'),
   },
   {
     path: '/news',
@@ -47,17 +47,17 @@ const routes = [
   {
     path: '/people',
     name: 'people',
-    component: () => import(/* webpackChunkName: "about" */ '../views/People.vue'),
+    component: () => import(/* webpackChunkName: "people" */ '../views/People.vue'),
   },
   {
     path: '/application',
     name: 'application',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Application.vue'),
+    component: () => import(/* webpackChunkName: "application" */ '../views/Application.vue'),
   },
   {
     path: '/joinus',
     name: 'join-us',
-    component: () => import(/* webpackChunkName: "about" */ '../views/JoinUs.vue'),
+    component: () => import(/* webpackChunkName: "join-us" */ '../views/JoinUs.vue'),
   },
   {
     path: '/resource',
@@ -67,7 +67,7 @@ const routes = [
   {
     path: '/resourceLogin',
     name: 'resourceLogin',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ResourceLogin.vue'),
+    component: () => import(/* webpackChunkName: "resource" */ '../views/ResourceLogin.vue'),
   }
 ]
 
@@ -78,7 +78,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
- 
+
   // 获取存储localStorage的token
   let token = getLocal('token')
   // 获取存储token的开始时间
@@ -101,9 +101,9 @@ router.beforeEach((to, from, next) => {
       Message.error("登录状态过期，请重新登录")
       return next('/resourceLogin')
     }
-  } 
+  }
   next()
- 
+
 })
 
 export default router
