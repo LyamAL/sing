@@ -83,8 +83,8 @@ export default {
       Toast.loading({message: '加载中...', forbidClick: true});
       const {data: glist} = await getGroupApplications()
       const {data: ilist} = await getIndividualApplications()
-      this.group_applicationList = glist;
-      this.self_applicationList = ilist
+      this.group_applicationList = glist.application_project_list;
+      this.self_applicationList = ilist.application_project_list
       Toast.clear()
     },
   }

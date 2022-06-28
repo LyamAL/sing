@@ -89,7 +89,7 @@
           </el-container>
         </el-col>
       </div>
-        
+
       </el-row> -->
     </div>
 
@@ -112,37 +112,39 @@ export default {
   name: 'research',
   data() {
     return {
-      researchList:[{
-        'title':"人工智能与大数据分析",
+      researchList: [{
+        'title': "人工智能与大数据分析",
         "imgUrl": require("../assets/banner1.jpg"),
-        "text": "Instant delivery has developed rapidly in recent years and significantly changed the lifestyle of people due to its timeliness and convenience. "},
+        "text": "Instant delivery has developed rapidly in recent years and significantly changed the lifestyle of people due to its timeliness and convenience. "
+      },
         {
-        'title':"物联网与移动通信技术",
-        "imgUrl": require("../assets/banner2.jpg"),
-        "text": "Recent years have witnessed the proliferation of Low-power Wide Area Networks (LPWANs) in the unlicensed band for various Internet-of-Things (IoT) applications. "}
+          'title': "物联网与移动通信技术",
+          "imgUrl": require("../assets/banner2.jpg"),
+          "text": "Recent years have witnessed the proliferation of Low-power Wide Area Networks (LPWANs) in the unlicensed band for various Internet-of-Things (IoT) applications. "
+        }
       ],
-      projectList:[{
-        "id": 1,
-      'title':"Networking Brain for Urban Cyber-Twin System",
-      'figurl': require("../assets/banner1.jpg"),
-      'source':"Ministry of Science and Technology Research and Development Project",
-      'duration':"01-01-2021 to 01-01-2021",
-      "principal": "Depeng Jin"
-      },{
-        "id": 2,
-        'title':"Networking Brain for Urban Cyber-Twin System",
-      'figurl': require("../assets/banner1.jpg"),
-      'source':"Ministry of Science and Technology Research and Development Project",
-      'duration':"01-01-2021 to 01-01-2021",
-      "principal": "Depeng Jin"
-      },{
-        "id": 3,
-        'title':"Networking Brain for Urban Cyber-Twin System",
-      'figurl': require("../assets/banner1.jpg"),
-      'source':"Ministry of Science and Technology Research and Development Project",
-      'duration':"01-01-2021 to 01-01-2021",
-      "principal": "Depeng Jin"
-    }]
+      //   projectList:[{
+      //     "id": 1,
+      //   'title':"Networking Brain for Urban Cyber-Twin System",
+      //   'figurl': require("../assets/knowleage_graph.png"),
+      //   'source':"Ministry of Science and Technology Research and Development Project",
+      //   'duration':"01-01-2021 to 01-01-2021",
+      //   "principal": "Depeng Jin"
+      //   },{
+      //     "id": 2,
+      //     'title':"Networking Brain for Urban Cyber-Twin System",
+      //   'figurl': require("../assets/knowleage_graph.png"),
+      //   'source':"Ministry of Science and Technology Research and Development Project",
+      //   'duration':"01-01-2021 to 01-01-2021",
+      //   "principal": "Depeng Jin"
+      //   },{
+      //     "id": 3,
+      //     'title':"Networking Brain for Urban Cyber-Twin System",
+      //   'figurl': require("../assets/knowleage_graph.png"),
+      //   'source':"Ministry of Science and Technology Research and Development Project",
+      //   'duration':"01-01-2021 to 01-01-2021",
+      //   "principal": "Depeng Jin"
+      // }]
     }
   },
   components: {
@@ -157,9 +159,9 @@ export default {
       forbidClick: true
     });
 
-   
+
     this.getProjects()
-    
+
     Toast.clear()
   },
   methods: {
@@ -202,7 +204,7 @@ export default {
   .el-row {
 
     margin-top: 20px;
-    
+
 
   }
 
