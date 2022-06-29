@@ -9,7 +9,7 @@
 
 
       <el-row :gutter="20" style=" margin-top:100px">
-        <el-col :span="12" v-for="(item, index) in researchList" :key="index" >
+        <el-col :span="8" v-for="(item, index) in researchList" :key="index" >
           <el-card :body-style="{ padding: '0px'}" shadow="hover">
             <div style="padding: 14px;" class="card-title">
               <span>{{item.title}}</span>
@@ -113,13 +113,19 @@ export default {
   data() {
     return {
       researchList: [{
-        'title': "人工智能与大数据分析",
-        "imgUrl": require("../assets/banner1.jpg"),
+        'title': "大数据分析与应用",
+        "imgUrl": require("../assets/research/bigdata.jpg"),
         "text": "Instant delivery has developed rapidly in recent years and significantly changed the lifestyle of people due to its timeliness and convenience. "
       },
         {
-          'title': "物联网与移动通信技术",
-          "imgUrl": require("../assets/banner2.jpg"),
+          'title': "物联网通信技术",
+          "imgUrl": require("../assets/research/trans.png"),
+          "text": "Recent years have witnessed the proliferation of Low-power Wide Area Networks (LPWANs) in the unlicensed band for various Internet-of-Things (IoT) applications. "
+        }
+        ,
+        {
+          'title': "物联网感知技术",
+          "imgUrl": require("../assets/research/sensing.png"),
           "text": "Recent years have witnessed the proliferation of Low-power Wide Area Networks (LPWANs) in the unlicensed band for various Internet-of-Things (IoT) applications. "
         }
       ],
