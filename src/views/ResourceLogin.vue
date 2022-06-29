@@ -62,8 +62,8 @@ import Verify from 'vue2-verify'
 import axios from '../utils/axios'
 
 
-
 export default {
+  
   data() {
     return {
       username:[],
@@ -108,15 +108,18 @@ export default {
         
         console.log("111111",formData)
         await axios.post('/login',formData).then(res=>{
-          this.$message(res.message)
+          this.$message(res.data.message)
            // 如果成功
+           console.log('tocken:',res.data.message)
           console.log('tocken:',res.JSESSIONID)
           // 登录成功,将token保存到本地,
           setLocal('token', res.JSESSIONID)
           // 存储token开始时间
           setLocal('tokenStartTime',new Date().getTime())
-          // 跳转到home页面
-          this.$router.push("/Resource")
+          if (res.data.status ==0){
+            // 跳转到home页面
+            this.$router.push("/Resource")
+          }
         })
         
         
@@ -142,6 +145,7 @@ export default {
 @import '../common/style/mixin';
 @import '../common/style/text';
   .login {
+    margin-top:60px;
     .logo {
       width: 120px;
       height: 120px;
@@ -221,6 +225,10 @@ export default {
 }
 .van-cell__title.van-field__label.van-field__label--right {
     width: 20%;
+}
+
+.el-message{
+  margin-top: 400px !important;
 }
 
 </style>

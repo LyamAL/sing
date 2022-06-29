@@ -28,9 +28,9 @@
                         <div slot="header" class="clearfix">
                             <span>
                                 <span style="margin-right: 20px">
-                                    
+                                    {{item.type}}:
                                 </span>
-                                <strong>{{item.title}}</strong>
+                                <strong>{{item.title}}</strong> 
                             </span>
                         </div>
                         
@@ -44,6 +44,7 @@
                                 <strong>详细:</strong>&nbsp; {{item.detail}}
                             </span> &nbsp;&nbsp;
                         </div>
+                        <div style="margin-top: 20px; text-align: right"> <a :href="item.url" :download="item.url">点击下载</a></div>
                         </el-card>
                     </el-timeline-item>
                 </el-timeline>
@@ -133,7 +134,7 @@
             },
             async getSources(){
                 axios.get('/getSources').then(res=>{
-                    let temp=res.sources_list
+                    let temp=res.data.sources_list
                     temp.sort(this.cmp("time"))
                     this.items=temp
                     this.source = temp

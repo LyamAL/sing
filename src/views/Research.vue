@@ -170,8 +170,8 @@ export default {
     // },
     async getProjects(){
       axios.get('/getProjects').then(res=>{
-        console.log(res.research_project_list)
-        this.projectList=res.research_project_list
+        console.log(res.data.research_project_list)
+        this.projectList=res.data.research_project_list
         console.log( this.projectList)
       })
     },
