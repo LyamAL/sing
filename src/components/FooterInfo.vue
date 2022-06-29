@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="info">
-      <div style="font-size: 25px; padding-bottom:15px; font-weight: bold">SING</div>
+      <div style="font-size: 25px; padding-bottom:15px; font-weight: bold">AIOTX</div>
       <div class="row"><i class="el-icon-office-building"></i>
         <span>
           东南大学九龙湖校区计算机科学与工程学院

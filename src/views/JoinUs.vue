@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header class="home-header">
       <nav-bar/>
     </header>
     <div class="joinus">
@@ -177,6 +177,7 @@ export default {
 
 .joinus {
   .fj(center);
+  margin-top: 40px;
   width: 72%;
   padding-left: 15%;
   flex-direction: column;
