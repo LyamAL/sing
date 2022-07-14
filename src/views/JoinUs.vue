@@ -11,7 +11,7 @@
         是由何田教授和王帅教授创办。实验主研究方向包括智慧物联网，大数据分析和无线通信等。实验室拥有浓厚的科研氛围，导师会针对学生的不同特点制定不同的培养方案。此外，实验室与罗格斯大学、韦恩州立大学、明尼苏达大学．香港城市大学等多所国际知名大学开展学生联合培养工作。
       </div>
       <van-divider/>
-      <span class="subtitle">招聘硕士/博士生研究方向</span>
+      <span class="subtitle">硕士/博士生研究方向</span>
       <div class="intro" v-for="direction in directionList" v-bind:key="direction">
         <span style="color: #4d5156; font-weight: bold; margin-bottom: 5px;">{{ direction.name }}</span>,
         {{ direction.desc }}
@@ -22,8 +22,7 @@
         <div v-for="prof in profList" v-bind:key="prof.index" class="card">
           <img :src="prof.imgUrl">
           <div class="col">
-            <router-link tag="a" :to="prof.pageUrl"><span>{{ prof.name }}</span></router-link>
-            <p>{{ prof.desc }} </p>
+            <a :src="prof.pageUrl"><span >{{ prof.chi }}</span> <br/><span style="font-size: 16px; font-weight: normal">{{prof.name}}</span></a>
           </div>
         </div>
       </div>
@@ -63,28 +62,26 @@ export default {
           desc: '大量的物联网设备会产生各式各样的数据，如何设计高效的系统去处理并应用这些数据是一个前景广阔的研究方向。实验室基于数据驱动去研究并解决实际生活中的许多问题，如共享单车的平衡调度、电动公交车队的电池寿命感知、蜂窝数据的用量预测等。'
         },
         {
-          name: '智慧物流网',
+          name: '智慧物联网',
           desc: '物联网设备数量正在以一个飞快的速度增长，如何更加智能化地连接、使用这些设备成为了一个非常具有科研和应用价值的方向。具体来说，研究异构直联通信技术使得不同的无线通信协议如WiFi、ZigBee和Bluetooth等能够免网关进行通信。研究计算机视觉和物联网设备感知相结合的技术，利用不同传感器收集的数据进行融合从而解决某些场景下相应的问题等。'
         },
       ],
       profList: [{
         'name': 'TIAN HE',
-        'imgUrl': 'http://47.102.214.205/img/hetian.39ba6c0b.jpg',
-        'pageUrl': 'http://47.102.214.205/',
-        'desc': 'IEEE/ACM Fellow\n' +
-          'Director, Smart Internet of Things Research Center, Southeast University\n' +
-          '\n' +
-          'Research Interests: Artificial Intelligence, Wireless Coexistence, Posture/Behavior Estimation, Social Interaction Monitoring, Large-Scale Intelligent Transportation Systems (road network efficiency and safety), Rechargeable Sensor Systems/Battery Array Management/Safe Charging.'
-      }
+        'chi':"何田",
+        'imgUrl': require('../assets/people/hetian.jpg'),
+        'pageUrl': 'http://47.102.214.205/' }
         , {
           'name': 'SHUAI WANG',
-          'imgUrl': 'http://47.102.214.205/img/wangshuai.3c813d61.jpg',
-          'pageUrl': 'http://47.102.214.205/',
-          'desc': 'Young Chief Professor, School of Computer Science and Engineering, Southeast University\n' +
-            'Executive Director, Smart Internet of Things Research Center, Southeast University\n' +
-            '\n' +
-            'Research Interests: Artificial Intelligence, Data Mining, Internet of Things, Wireless Networks And Sensors.\n'
-        }]
+          'chi':"王帅",
+          'imgUrl': require('../assets/people/wangshuai.jpg'),
+          'pageUrl': 'http://47.102.214.205/'
+        },
+        {
+          'name': 'WEIWEI CHEN',
+          'chi':'陈巍巍',
+          'imgUrl': require('../assets/people/chenweiwei.jpg'),
+          'pageUrl': 'http://47.102.214.205/'}]
     }
   },
   components: {
@@ -115,12 +112,12 @@ export default {
   display: flex;
   width: 100%;
   padding-top: 15px;
-  flex-direction: column;
-  .fj(center);
+  flex-direction: row;
+  .fj(space-around);
   padding-bottom: 15px;
 
   .card {
-    width: 72%;
+    width: 30%;
     margin-bottom: 15px;
 
     color: #4d5156;
@@ -135,7 +132,7 @@ export default {
     img {
       .wh(100px, 120px);
       border-radius: 8px;
-      margin: 5px 0;
+      margin: 5px 5px;
     }
 
     &:hover {
@@ -162,11 +159,6 @@ export default {
         padding-left: 10px;
         font-size: 15px;
         font-weight: bold;
-      }
-
-      p {
-        padding: 10px 10px;
-        font-size: 12px;
         text-align: left;
       }
     }

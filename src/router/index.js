@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import {getLocal,removeLocal} from '@/common/js/utils'
 import {Message} from 'element-ui'
 
+
 Vue.use(VueRouter)
 
 // 定义路由规则
@@ -72,7 +73,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })
@@ -90,7 +91,7 @@ router.beforeEach((to, from, next) => {
   let date = new Date().getTime()
   // 如果大于说明是token过期了
   if(date - tokenStartTime > timeOver) {
-     console.log('tocken',token)
+     // console.log('tocken',token)
      token = null
      removeLocal('token')
   }

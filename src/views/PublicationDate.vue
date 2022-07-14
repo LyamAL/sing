@@ -14,17 +14,22 @@
       <el-tabs type="border-card" @tab-click="handleClick" v-model="activeName">
         <el-tab-pane label="All" name="All">
           <van-list v-if="activeName === 'All'">
-            <van-cell v-for="paper in paperList" :key="paper">{{ paper.author }}.
-              <router-link :to="paper.url" style="color: #3895bf">{{ paper.title }}</router-link>
-              , in {{ paper.publication }} {{ paper.year }} (<strong>{{ paper.publication }}</strong>)
+            <van-cell v-for="(paper, index) in paperList" :key="paper">
+              <strong>{{index + 1}}. {{ paper.title }}.
+                <a :href="'http://123.57.255.174:8080' + paper.url" style="color: #3895bf">[PDF]</a>
+              </strong><br>&#12288;&#12288;{{paper.author}}, <strong>{{ paper.publication }}</strong>, {{paper.year}},
+              <strong>{{paper.note}}</strong>
             </van-cell>
+
           </van-list>
         </el-tab-pane>
         <el-tab-pane v-for="y in yearList" :label="y.toString()" v-bind:key="y" :name="y.toString()">
           <van-list v-if="activeName === y.toString()">
-            <van-cell v-for="paper in paperList" :key="paper">{{ paper.author }}.
-              <router-link :to="paper.url" style="color: #3895bf">{{ paper.title }}</router-link>
-              , in {{ paper.publication }} {{ paper.year }} (<strong>{{ paper.publication }}</strong>)
+            <van-cell v-for="(paper,index) in paperList" :key="paper">
+              <strong>{{index + 1}}. {{ paper.title }}.
+              <a :href="'http://123.57.255.174:8080' + paper.url" style="color: #3895bf">[PDF]</a>
+            </strong><br>&#12288;&#12288;{{paper.author}}, <strong>{{ paper.publication }}</strong>,
+              {{paper.year}}, <strong>{{paper.note}}</strong>
             </van-cell>
           </van-list>
         </el-tab-pane>
@@ -58,6 +63,7 @@ export default {
       //     title: 'Hierarchical Reinforcement Learning for Scarce Medical Resource Allocation with Imperfect Information',
       //     publication: 'IEEE',
       //     author: 'Wang,Li,Zhang',
+      //     notes:'',
       //     url: 'https://dl.acm.org/doi/pdf/10.1145/3447548.3467181'
       //   },
       //   {
@@ -186,7 +192,7 @@ export default {
       //   },
       // ],
       // yearList: [2016, 2019, 2020, 2021, 2022],
-      yearList: [],
+      yearList: []
     }
   },
   mounted() {
@@ -274,8 +280,8 @@ export default {
 
 .tabs {
   .fj(flex-start);
-  width: 72%;
-  margin-left: 15%;
+  width: 90%;
+  margin-left: 5%;
   margin-bottom: 30px;
 
   color: #4d5156;

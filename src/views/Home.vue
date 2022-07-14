@@ -11,8 +11,8 @@
         </h4></div>
       <div>
         <p class="group-desc">
-          智慧物联网研究中心是由何田教授和王帅教授于2018年11月创立的实验室。实验室研究方向包括：物联网感知与通信、人工智能与大数据分析、实时计算等。目前博士研究生11名，硕士研究生40余名，并与明尼苏达大学、罗格斯大学、韦恩州立大学、香港城市大学、饿了么、京东物流等多所国际知名大学/企业开展学生联合培养工作。
-        </p>
+          The AIOTX lab is a laboratory founded by Professor He Tian and Professor Wang Shuai in November 2018. The research directions of the laboratory include: Internet of Things perception and communication, artificial intelligence and big data analysis, real-time computing, etc. At present, there are 11 doctoral students and more than 40 master students, and have carried out joint student training work with many internationally renowned universities/enterprises such as University of Minnesota, Rutgers University, Wayne State University, City University of Hong Kong, Ele.me, and JD Logistics. .
+            </p>
       </div>
     </div>
     <div class="research-list">
@@ -28,7 +28,7 @@
         <img :src="prof.imgUrl">
         <div class="col">
           <router-link tag="a" :to="prof.pageUrl"><span>{{ prof.name }}</span></router-link>
-          <p>{{ prof.desc }} </p>
+          <p >{{ prof.desc }} </p>
         </div>
       </div>
     </div>
@@ -53,22 +53,22 @@ export default {
       isLogin: false,
       headerScroll: true,
       researchList: [{
-        'name': '大数据分析',
+        'name': '大数据分析与应用',
         'imgUrl': require('../assets/research/bigdata.jpeg'),
         'desc': '实验室基于数据驱动去研究并解决实际生活中的许多问题，如停车场空闲车位的有效分配、即时配送场景的订单分派、共享单车的平衡调度、蜂窝数据的用量预测等。'
       }
         , {
-          'name': '智慧物联网',
+          'name': '物联网通信',
           'imgUrl': require('../assets/research/tongxin.jpg'),
           'desc': '物联网设备数量正在以一个飞快的速度增长，如何更加智能化地连接、使用这些设备成为了一个非常具有科研和应用价值的方向。研究计算机视觉与物联网设备结合的技术，利用不同传感器收集的数据进行融合从而解决某些场景下相应的问题等。'
         }, {
-          'name': '物联网与大数据共融',
+          'name': '物联网感知',
           'imgUrl': require('../assets/research/sensing.jpg'),
           'desc': '互联的移动和嵌入式设备的激增带来了一个传感器丰富的世界。在我们的日常环境中，越来越多的事物具有计算、传感和通信功能，这种功能有望彻底改变人类与物理对象之间的交互。通过智能感知与数据采集，可获得大规模传感数据供信息特征挖掘。同时，深度学习的最新进展极大地改变了计算设备处理以人为中心的内容（例如图像，视频，语音和音频）的方式。因此，将深层神经网络应用于IoT设备采集的数据挖掘可以能够执行复杂的感测和识别任务，以支持人类与其周围环境之间相互作用的新领域。'
         }],
       professorList: [{
         'name': 'TIAN HE',
-        'imgUrl': 'http://47.102.214.205/img/hetian.39ba6c0b.jpg',
+        'imgUrl': require('../assets/people/hetian.jpg'),
         'pageUrl': 'http://47.102.214.205/',
         'desc': 'IEEE/ACM Fellow\n' +
           'Director, Smart Internet of Things Research Center, Southeast University\n' +
@@ -77,7 +77,7 @@ export default {
       }
         , {
           'name': 'SHUAI WANG',
-          'imgUrl': 'http://47.102.214.205/img/wangshuai.3c813d61.jpg',
+          'imgUrl': require('../assets/people/wangshuai.jpg'),
           'pageUrl': 'http://47.102.214.205/',
           'desc': 'Young Chief Professor, School of Computer Science and Engineering, Southeast University\n' +
             'Executive Director, Smart Internet of Things Research Center, Southeast University\n' +
@@ -85,7 +85,7 @@ export default {
             'Research Interests: Artificial Intelligence, Data Mining, Internet of Things, Wireless Networks And Sensors.\n'
         }, {
           'name': 'WEIWEI CHEN',
-          'imgUrl': 'http://47.102.214.205/img/chenweiwei.a8bc4b47.jpg',
+          'imgUrl': require('../assets/people/chenweiwei.jpg'),
           'pageUrl': 'http://47.102.214.205/',
           'desc': 'Associate Professor, School of Computer Science and Engineering, Southeast University\n' +
             '\n' +
@@ -109,16 +109,13 @@ export default {
       forbidClick: true
     });
     this.swiperList = [{
-      "carouselUrl": require("../assets/banner1.jpg"),
-      "redirectUrl": "http://47.102.214.205/"
+      "carouselUrl": require("../assets/banner2.jpg"),
     },
       {
-        "carouselUrl": require("../assets/banner2.jpg"),//"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner-iphone13.png",
-        "redirectUrl": "http://47.102.214.205/"
+        "carouselUrl": require("../assets/banner3.jpg"),
       },
       {
-        "carouselUrl": require("../assets/banner3.jpg"),
-        "redirectUrl": "http://47.102.214.205/"
+        "carouselUrl": require("../assets/banner1.jpg"),
       }]
     Toast.clear()
   },
@@ -167,7 +164,7 @@ export default {
 
   .group-desc {
     padding: 15px 15%;
-    text-align: left;
+    text-align: justify;
     color: #4d5156;
     font-weight: 500;
     font-size: 12px;
@@ -281,7 +278,7 @@ export default {
       p {
         padding: 10px 10px;
         font-size: 12px;
-        text-align: left;
+        text-align: justify;
       }
     }
 

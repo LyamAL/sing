@@ -14,17 +14,19 @@
       <el-tabs type="border-card" @tab-click="handleClick" v-model="activeName">
         <el-tab-pane label="All" name="All">
           <van-list v-if="activeName === 'All'">
-            <van-cell v-for="paper in paperList" :key="paper">{{ paper.author }}.
-              <router-link :to="paper.url" style="color: #3895bf">{{ paper.title }}</router-link>
-              , in {{ paper.publication }} {{ paper.year }} (<strong>{{ paper.publication }}</strong>)
+            <van-cell v-for="(paper,index) in paperList" :key="paper">  <strong>{{index + 1}}. {{ paper.title }}.
+              <a :href="'http://123.57.255.174:8080' + paper.url" style="color: #3895bf">[PDF]</a>
+            </strong><br>&#12288;&#12288;{{paper.author}}, <strong>{{ paper.publication }}</strong>,
+              {{paper.year}}, <strong>{{paper.note}}</strong>
             </van-cell>
           </van-list>
         </el-tab-pane>
         <el-tab-pane v-for="topic in topicList" :label="topic" v-bind:key="topic" :name="topic">
           <van-list v-if="activeName === topic">
-            <van-cell v-for="paper in paperList" :key="paper">{{ paper.author }}.
-              <router-link :to="paper.url" style="color: #3895bf">{{ paper.name }}</router-link>
-              , in {{ paper.publication }} {{ paper.year }} (<strong>{{ paper.publication }}</strong>)
+            <van-cell v-for="(paper,index) in paperList" :key="paper">  <strong>{{index + 1}}. {{ paper.title }}.
+              <a :href="'http://123.57.255.174:8080' + paper.url" style="color: #3895bf">[PDF]</a>
+            </strong><br>&#12288;&#12288;{{paper.author}}, <strong>{{ paper.publication }}</strong>,
+              {{paper.year}}, <strong>{{paper.note}}</strong>
             </van-cell>
           </van-list>
         </el-tab-pane>
@@ -217,6 +219,7 @@ export default {
       temp.sort(this.cmp("date"));
       this.source = temp;
       this.paperList = temp
+      this.yearList = this.getYearList(temp);
       this.topicList = this.getTopicList(temp);
       Toast.clear()
     },
@@ -245,6 +248,15 @@ export default {
       }
       this.filterPaper(topic)
       this.activeName = tab.label
+    },
+    getYearList(src) {
+      let years = new Set();
+      for (let i = 0; i < src.length; i++) {
+        let year = src[i]["date"].split("-")[0];
+        years.add(year);
+        this.source[i]['year'] = year
+      }
+      return Array.from(years)
     },
     cmp(p) {
       return function (a, b) {
@@ -288,8 +300,8 @@ export default {
 
 .tabs {
   .fj(flex-start);
-  width: 72%;
-  margin-left: 15%;
+  width: 90%;
+  margin-left: 5%;
   margin-bottom: 30px;
 
   color: #4d5156;

@@ -19,7 +19,7 @@
                 </template>
             </el-menu-item>
             </el-menu>
-            
+
         </el-aside>
             <el-main style="height: 800px">
                 <el-timeline>
@@ -30,10 +30,10 @@
                                 <span style="margin-right: 20px">
                                     {{item.type}}:
                                 </span>
-                                <strong>{{item.title}}</strong> 
+                                <strong>{{item.title}}</strong>
                             </span>
                         </div>
-                        
+
                         <div>
                             <span>
                                 <span style="margin-right: 20px">
@@ -44,14 +44,14 @@
                                 <strong>详细:</strong>&nbsp; {{item.detail}}
                             </span> &nbsp;&nbsp;
                         </div>
-                        <div style="margin-top: 20px; text-align: right"> <a :href="item.url" :download="item.url">点击下载</a></div>
+                        <div style="margin-top: 20px; text-align: right"> <a :href="'http://123.57.255.174:8080' + item.url" :download="'http://123.57.255.174:8080' + item.url">点击下载</a></div>
                         </el-card>
                     </el-timeline-item>
                 </el-timeline>
             </el-main>
         </el-container>
     </div>
-   
+
  <footer-info/>
 </div>
 </template>
@@ -72,7 +72,7 @@
                 isLogin: false,
             }
         },
-        components: {     
+        components: {
             navBar,
             footerInfo
         },
@@ -100,7 +100,7 @@
             })*/
             this.getSources()
             console.log(this.items)
-           
+
         },
         methods:{
             filterPaper(year, _){

@@ -7,12 +7,11 @@
       <h3 style="font-weight: bold; font-size: 30px;">Group Application:</h3>
     </div>
     <div class="apps">
-      <!--        TODO-->
       <div class="singe-app" v-for="app in group_applicationList" v-bind:key="app.title">
         <router-link tag="div" to="/knowledge_graph/">
           <span>{{ app.title }}
           </span>
-          <img :src="app.figurl" alt="">
+          <img :src="'http://123.57.255.174:8080' + app.figurl" alt="">
         </router-link>
         <p>{{ app.detail }}</p>
       </div>
@@ -25,7 +24,7 @@
         <div>
         <span>{{ app.title }}
         </span>
-          <img :src="app.figurl" alt="">
+          <img :src="'http://123.57.255.174:8080' + app.figurl" alt="">
         </div>
         <p>{{ app.detail }}</p>
       </div>
@@ -142,7 +141,7 @@ export default {
     }
 
     img {
-      .wh(260px, 150px);
+      .wh(100%, 150px);
       border-radius: 8px;
       margin: 10px;
     }
@@ -156,10 +155,11 @@ export default {
     }
 
     p {
-      width: 65%;
+      width: 62%;
       font-size: 14px;
       color: #4d5156;
-      padding: 15px
+      padding: 15px;
+      text-align: justify;
     }
   }
 }
